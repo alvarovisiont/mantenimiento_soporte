@@ -15,7 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('usuarios', function () {
-    return view('usuarios/index');
-});
+Route::get('departamentos', 'DepartamentosController@index');
+
+Route::put('departamentos', 'DepartamentosController@modificar');
+
+
 

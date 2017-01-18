@@ -10,7 +10,7 @@ class Departamentos extends Model
 
  	protected $primaryKey = "id_departamento";
 
- 	public $timestamp = false;
+ 	public $timestamps = false;
 
  	protected $fillable = [
         'id_departamento',

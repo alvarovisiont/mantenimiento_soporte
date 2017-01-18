@@ -1,8 +1,3 @@
-<?
-if(isset($_SESSION['id_user'])){
-  session_destroy();
-}
-?>
 <!DOCTYPE html>
 <html>
  <head>
