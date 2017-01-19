@@ -28,13 +28,15 @@
       <div class="login-box-body">
         <p class="login-box-msg">Ingrese sus datos de Acceso</p>
         {!! Form::open(['id'=>'login','route' => 'log.store' , 'method' => ' POST']) !!}
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
 
           <div class="form-group has-feedback">
           {!! Form::text('usuario', null  ,['class' => 'form-control' , 'placeholder' => 'Usuario','id' => 'usuario-id'])!!}
+          
 
           </div>
           <div class="form-group has-feedback">
-          {!! Form::password('password', ['class' => 'form-control' , 'placeholder' => 'Contraseña']) !!}
+          {!! Form::password('password', ['class' => 'form-control' , 'placeholder' => 'Contraseña' , 'id' => 'pass-in']) !!}
 
     
           </div>
@@ -45,13 +47,7 @@
             </div>
           </div>
           
-            <div id="msj-error">@if(Session::has('message-error'))
-
-<div class="alert alert-danger alert-dismissable" role="alert">
-  <button type="button" class="close" data-miss="alert" aria-label="Close"><span -hidden="true">&times;</span></button>
-  {{Session::get('message-error')}}
-</div>
-@endif</div>
+            <div id="msj-alert" style="display:none">@include('alertas.errors')</div>
          
           <div class="row">
             <div class="col-xs-8">
@@ -80,7 +76,7 @@
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('js/app.min.js') }}"></script>
+    
   
 <script>
 $(document).ready(function(event) {
@@ -88,27 +84,36 @@ $(document).ready(function(event) {
   
 
   var btn = $("#btn-login");
+ var form = $("#login");
 
-  btn.click(function() {
+  form.submit(function() {
   
-  var form = $("#login");
+ 
   var ir = form.attr('action');
   var datos = $("#usuario-id").val();
-  //var alert = $("msj-error");
-
+  var alert = $("#msj-error");
+  var datos = $("#login").serialize();
+  var token = $("#token").val();
+      
   $.ajax({
-
       type: 'POST',
       url: ir,
-      data: {usuario: datos},
+      headers: {'X-CSRF-TOKEN': token},
+      data: {data: datos,},
       dateType: 'json',
       success: function(datos){
-    
-       //$("#msj-error").fadeOut('slow/400/fast');
-      
+
+      console.log(datos.message);
+
+       $(".progress").show("slow/400/fast");
+       $(".progress").fadeOut("800");
+       //alert.prop("style",false);
+       //alert.fadeOut("500");
       }
-   
-      })
+    
+      });
+
+  return false;
    });
 
  });

@@ -5,7 +5,7 @@ use Session;
 use Redirect;
 use App\Usuarios;
 use Illuminate\Http\Request;
-//use \Http\Request\LoginRequest;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests;
 use Auth;
 
@@ -37,24 +37,24 @@ class LogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
         $message="Datos son incorrectos";
 
+              if ($request->ajax()) {
         if(Auth::attempt(['usuario' => $request['usuario'], 'pass' => $request['password']])){
 
             return Redirect::to('layout/admin');
         }
 
-        if ($request->ajax) {
+      
             return response()->json([
- 
-                'message' => $message
+                "message" => $message
                 ]);
         }
-
         Session::flash('message-error', $message);
         return Redirect::to('/');
+    
     }
 
     /**

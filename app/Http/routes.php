@@ -19,7 +19,8 @@ Route::get('departamentos', 'DepartamentosController@index');
 
 Route::put('departamentos', 'DepartamentosController@modificar');
 
-Route::resource('log','LogController');
+//Route::post('log/store','LogController@store');
+Route::resource('log','LogController@store');
 
 
 
