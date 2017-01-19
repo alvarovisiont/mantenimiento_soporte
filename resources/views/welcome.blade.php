@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
  <head>
@@ -22,19 +23,20 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="../../index2.html"><b>INGRESO AL SISTEMA</b></a>
+        <a href="#"><b>INGRESO AL SISTEMA</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Ingrese sus datos de Acceso</p>
-        <form id="login-form" action="usuarios" method="post">
-          <input hidden name="action" value="login">
+        {!! Form::open(['id'=>'login','route' => 'log.store' , 'method' => ' POST']) !!}
+
           <div class="form-group has-feedback">
-            <input class="form-control" type="text" name="cedula" placeholder="Cedula">
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          {!! Form::text('usuario', null  ,['class' => 'form-control' , 'placeholder' => 'Usuario','id' => 'usuario-id'])!!}
+
           </div>
           <div class="form-group has-feedback">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          {!! Form::password('password', ['class' => 'form-control' , 'placeholder' => 'Contraseña']) !!}
+
+    
           </div>
           <div class="form-group">
             <div class="progress" style="display:none">
@@ -42,19 +44,28 @@
               </div>
             </div>
           </div>
-          <div class="alert alert-danger" role="alert" style="display:none">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;
-            <span id="msj">Datos incorrectos</span>
-          </div>
+          
+            <div id="msj-error">@if(Session::has('message-error'))
+
+<div class="alert alert-danger alert-dismissable" role="alert">
+  <button type="button" class="close" data-miss="alert" aria-label="Close"><span -hidden="true">&times;</span></button>
+  {{Session::get('message-error')}}
+</div>
+@endif</div>
+         
           <div class="row">
             <div class="col-xs-8">
               
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <a id="enviar"  class="btn btn-primary btn-block btn-flat" href="usuarios">Ingresar</a>
+             
+              {!!Form::submit('Entrar',['id'=>'btn-login','class' => 'btn btn-primary btn-block btn-flat'])!!}
+
             </div><!-- /.col -->
           </div>
         </form>
+
+        {!!Form::close()!!}
 
         
     
@@ -65,3 +76,40 @@
 
   </body>
 </html>
+<script src="{{ asset('js/jQuery-2.1.4.min.js') }}"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('js/app.min.js') }}"></script>
+  
+<script>
+$(document).ready(function(event) {
+
+  
+
+  var btn = $("#btn-login");
+
+  btn.click(function() {
+  
+  var form = $("#login");
+  var ir = form.attr('action');
+  var datos = $("#usuario-id").val();
+  //var alert = $("msj-error");
+
+  $.ajax({
+
+      type: 'POST',
+      url: ir,
+      data: {usuario: datos},
+      dateType: 'json',
+      success: function(datos){
+    
+       //$("#msj-error").fadeOut('slow/400/fast');
+      
+      }
+   
+      })
+   });
+
+ });
+</script>

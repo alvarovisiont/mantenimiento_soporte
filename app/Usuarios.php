@@ -12,7 +12,7 @@ class Usuarios extends Model
 
     public $timestamp=false;
 
-    protected fillable = [
+    protected $fillable = [
     'id_tarea',
     'nombre',
     'apellido',
