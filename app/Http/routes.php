@@ -22,11 +22,12 @@ Route::put('departamentos', 'DepartamentosController@modificar');
 //Route::post('log/store','LogController@store');
 Route::resource('log','LogController@store');
 
-
-
-
 Route::auth();
 
 Route::get('layout',function() {
 	return view('layout.admin');
 });
+
+Route::auth();
+
+Route::get('layout', 'HomeController@index');

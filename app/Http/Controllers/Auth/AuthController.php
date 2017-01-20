@@ -30,6 +30,9 @@ class AuthController extends Controller
      */
     protected $redirectTo = 'layout';
 
+//Para que inicie sesion con usuario en vez de email
+        protected $username = "usuario";
+
     /**
      * Create a new authentication controller instance.
      *
@@ -51,7 +54,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:70',
             'apellido' => 'required|max:80',
-            'usuario' => 'required|max:18|unique:usuario',
+            'usuario' => 'required|max:18|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -64,6 +67,8 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        //para redireccionar despues de registrar
+        $this->redirectTo = '/';
         return User::create([
             'name' => $data['name'],
             'apellido' => $data['apellido'],
@@ -71,4 +76,6 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+
 }
