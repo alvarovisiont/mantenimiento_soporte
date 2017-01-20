@@ -52,9 +52,11 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'cedula' => 'required|max:8|min:7|unique:users',
             'name' => 'required|max:70',
             'apellido' => 'required|max:80',
             'usuario' => 'required|max:18|unique:users',
+            'nivel' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -68,12 +70,14 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         //para redireccionar despues de registrar
-        $this->redirectTo = '/';
+        $this->redirectTo = '/logout';
         return User::create([
-            'name' => $data['name'],
+            'cedula' => $data['cedula'],
+            'name'   => $data['name'],
             'apellido' => $data['apellido'],
             'usuario' => $data['usuario'],
             'password' => bcrypt($data['password']),
+            'nivel' => $data['nivel'],
         ]);
     }
 

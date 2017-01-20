@@ -11,23 +11,21 @@
 |
 */
 
+//Raiz , si estan en la raiz , va a la vista de login
 Route::get('/', function () {
     return view('auth.login');
 });
 
+//Departamentos CRUD
 Route::get('departamentos', 'DepartamentosController@index');
-
 Route::put('departamentos', 'DepartamentosController@modificar');
 
-//Route::post('log/store','LogController@store');
-Route::resource('log','LogController@store');
 
+//Rutas de login
 Route::auth();
 
 Route::get('layout',function() {
 	return view('layout.admin');
 });
-
-Route::auth();
 
 Route::get('layout', 'HomeController@index');
