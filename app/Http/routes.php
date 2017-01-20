@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('departamentos', 'DepartamentosController@index');
@@ -24,3 +24,9 @@ Route::resource('log','LogController@store');
 
 
 
+
+Route::auth();
+
+Route::get('layout',function() {
+	return view('layout.admin');
+});

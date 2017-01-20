@@ -52,15 +52,15 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <small class="bg-red">Online</small>
-                  <span class="hidden-xs">Fran Hernandez</span>
+                  <small class="bg-red">Online</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="hidden-xs">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     
                     <p>
-                      www.github.com/simoleans
+                      {{ Auth::user()->apellido }}
                       <small>GitHub Plantilla</small>
                     </p>
                   </li>
@@ -69,7 +69,7 @@
                   <li class="user-footer">
                     
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Cerrar</a>
+                      <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Cerrar</a>
                     </div>
                   </li>
                 </ul>
