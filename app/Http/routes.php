@@ -11,14 +11,11 @@
 |
 */
 
-//Raiz , si estan en la raiz , va a la vista de login
-Route::get('/', function () {
+Route::get('mantenimiento_soporte', function () {
     return view('auth.login');
 });
 
-//Departamentos CRUD
-Route::get('departamentos', 'DepartamentosController@index');
-Route::put('departamentos', 'DepartamentosController@modificar');
+Route::resource('departamentos', 'DepartamentosController');
 
 //Rutas usuarios
 Route::resource('usuarios', 'UsuariosController');
@@ -27,12 +24,8 @@ Route::patch('usuarios/{id}/edit',[
     'uses' => 'UsuariosController@update'
 ]);
 
-
-//Rutas de login
 Route::auth();
 
 Route::get('layout',function() {
 	return view('layout.admin');
 });
-
-Route::get('layout', 'HomeController@index');

@@ -17,7 +17,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
-    <link rel="apple-touch-icon" href="{{ asset('img/apple-touch-icon.png') }}">
+
+    <!--<link rel="apple-touch-icon" href="{{ asset('img/apple-touch-icon.png') }}">-->
      <!-- jQuery 2.1.4 -->
     <script src="{{ asset('js/jQuery-2.1.4.min.js') }}"></script>
     <!-- Bootstrap 3.3.5 -->
@@ -117,7 +118,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i>Agregar Departamentos</a></li>
+                <li><a href="departamentos"><i class="fa fa-circle-o"></i>Administrar Departamentos</a></li>
                 
               </ul>
             </li>
