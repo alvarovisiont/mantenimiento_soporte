@@ -10,6 +10,20 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
 
+                        <div class="form-group{{ $errors->has('cedula') ? ' has-error' : '' }}">
+                            <label for="cedula" class="col-md-4 control-label">Cedula</label>
+
+                            <div class="col-md-6">
+                                <input id="cedula" type="text" class="form-control" name="cedula" value="{{ old('cedula') }}">
+
+                                @if ($errors->has('cedula'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('cedula') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Nombre</label>
 
@@ -75,6 +89,25 @@
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('nivel') ? ' has-error' : '' }}">
+                            <label for="password" class="col-md-4 control-label">Nivel</label>
+
+                            <div class="col-md-6">
+                                <select name="nivel" id="nivel" class="form-control">
+                                    <option>Seleccione..</option>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Trabajador</option>
+                                    <option value="3">Operador</option>
+                                </select>
+
+                                @if ($errors->has('nivel'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('nivel') }}</strong>
                                     </span>
                                 @endif
                             </div>

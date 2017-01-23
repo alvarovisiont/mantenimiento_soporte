@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use DB;
 
 class AuthController extends Controller
 {
@@ -40,7 +41,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
     /**
@@ -52,9 +53,11 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'cedula' => 'required|max:8|min:7|unique:users',
             'name' => 'required|max:70',
             'apellido' => 'required|max:80',
             'usuario' => 'required|max:18|unique:users',
+            'nivel' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -65,15 +68,22 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
+
+    public function index() {
+
+          
+
     protected function create(array $data)
     {
         //para redireccionar despues de registrar
-        $this->redirectTo = '/';
+        $this->redirectTo = '/layout';
         return User::create([
-            'name' => $data['name'],
+            'cedula' => $data['cedula'],
+            'name'   => $data['name'],
             'apellido' => $data['apellido'],
             'usuario' => $data['usuario'],
             'password' => bcrypt($data['password']),
+            'nivel' => $data['nivel'],
         ]);
     }
 
