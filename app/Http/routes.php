@@ -20,10 +20,11 @@ Route::resource('departamentos', 'DepartamentosController');
 Route:: resource('equipos', 'EquiposController');
 
 //Rutas usuarios
-Route::get('usuarios',function () {
-	return view('usuarios.index');
-});
-Route::get('usuarios/ver', 'UsuariosController@index');
+Route::resource('usuarios', 'UsuariosController');
+Route::patch('usuarios/{id}/edit',[
+    'as' => 'usuarios.update',
+    'uses' => 'UsuariosController@update'
+]);
 
 Route::auth();
 
