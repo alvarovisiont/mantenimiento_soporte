@@ -70,10 +70,11 @@ class AuthController extends Controller
      */
 
     public function index() {
+    }
 
           
 
-    protected function create(array $data)
+    public function create(array $data)
     {
         //para redireccionar despues de registrar
         $this->redirectTo = '/layout';
