@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use DB;
 
 class AuthController extends Controller
 {
@@ -40,7 +41,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
     /**
@@ -67,10 +68,15 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
+
+    public function index() {
+
+          
+
     protected function create(array $data)
     {
         //para redireccionar despues de registrar
-        $this->redirectTo = '/logout';
+        $this->redirectTo = '/layout';
         return User::create([
             'cedula' => $data['cedula'],
             'name'   => $data['name'],

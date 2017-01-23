@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}"></link>
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/jquery.dataTables.css') }}"></link>
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
@@ -22,7 +24,13 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('js/app.min.js') }}"></script>
+  <!--Datatables -->
+    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
+
+
   
+ 
 
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -92,39 +100,17 @@
             
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>Almacén</span>
+                <i class="fa fa-user"></i>
+                <span>Usuarios</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="almacen/articulo"><i class="fa fa-circle-o"></i> Artículos</a></li>
-                <li><a href="almacen/categoria"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                <li><a href="usuarios"><i class="fa fa-circle-o"></i> Registrar usuarios</a></li>
+                <li><a href="usuarios/ver"><i class="fa fa-circle-o"></i> Ver usuarios</a></li>
               </ul>
             </li>
             
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-th"></i>
-                <span>Compras</span>
-                 <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="compras/ingreso"><i class="fa fa-circle-o"></i> Ingresos</a></li>
-                <li><a href="compras/proveedor"><i class="fa fa-circle-o"></i> Proveedores</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-shopping-cart"></i>
-                <span>Ventas</span>
-                 <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="ventas/venta"><i class="fa fa-circle-o"></i> Ventas</a></li>
-                <li><a href="ventas/cliente"><i class="fa fa-circle-o"></i> Clientes</a></li>
-              </ul>
-            </li>
-                       
+            
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Departamentos</span>

@@ -20,6 +20,12 @@ Route::get('/', function () {
 Route::get('departamentos', 'DepartamentosController@index');
 Route::put('departamentos', 'DepartamentosController@modificar');
 
+//Rutas usuarios
+Route::get('usuarios',function () {
+	return view('usuarios.index');
+});
+Route::get('usuarios/ver', 'UsuariosController@index');
+
 
 //Rutas de login
 Route::auth();
