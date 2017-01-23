@@ -14,7 +14,7 @@ if($d->nivel == "3"){
 
 @endphp
 
-<div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-delete-{{$d->id_user}}">
+<div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-modificar-{{$d->id_user}}">
 	
 {{Form::Open(array('action'=>array('UsuariosController@update',$d->id_user), 'method' =>'PATCH','id' =>'form'))}}
 {{--<input type="hidden" name="_token" value="{{ csrf_token }}" id="token">--}}
@@ -60,20 +60,42 @@ if($d->nivel == "3"){
 							<option value="{{$d->nivel}}" selected>{{$d->nivel}}</option>
 					</select>
 				</div>
-			</div>
-
-			
-
-			
-		</div>
-		
-
-	
-			
-		</div>
+			</div>			
+		</div>				
+	</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 			<button type="submit" class="btn btn-info" id="enviar">Modificar</button>
+		</div>
+	</div>
+</div>
+{!! Form::close() !!}
+</div>
+
+<div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-delete-{{$d->id_user}}">
+	
+{{Form::Open(array('action'=>array('UsuariosController@destroy',$d->id_user), 'method' =>'delete','id' =>'form'))}}
+{{--<input type="hidden" name="_token" value="{{ csrf_token }}" id="token">--}}
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" arial-label="Close">
+				<span aria-hidden="true">x</span>
+			</button>
+			<h4 class="modal-title">Elminar Usuario</h4>
+		</div>
+		<div class="modal-body">
+			<p>Confirme si desea eliminar este usuario:</p>
+			<ul>
+				<li>Nombre : <b>{{ $d->name }}</b></li>
+				<li>Apellido : <b>{{ $d->apellido }}</b></li>
+				<li>Nivel : <b>{{ $d->nivel }}</b></li>
+				<li>Usuario: <b class="label bg-yellow">{{strtoupper($d->usuario)}}</b></li>
+			</ul>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			<button type="submit" class="btn btn-danger" id="enviar">Eliminar</button>
 		</div>
 	</div>
 </div>

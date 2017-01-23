@@ -48,8 +48,8 @@
 					<td>{{ $d->usuario }}</td>
 					<td>{{ $d->nivel }}</td>
 					<td>
-						<a href="" data-target="#modal-delete-{{$d->id_user}}" data-toggle="modal"><button class="btn btn-info">Modificar</button></a>
-						<a href=""><button class="btn btn-success">Ver</button></a>
+						<a href="" data-target="#modal-modificar-{{$d->id_user}}" data-toggle="modal"><button class="btn btn-info">Modificar</button></a>
+						<a href="" data-target="#modal-delete-{{$d->id_user}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>
 				</tbody>
