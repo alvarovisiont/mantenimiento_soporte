@@ -21,10 +21,11 @@ Route::get('departamentos', 'DepartamentosController@index');
 Route::put('departamentos', 'DepartamentosController@modificar');
 
 //Rutas usuarios
-Route::get('usuarios',function () {
-	return view('usuarios.index');
-});
-Route::get('usuarios/ver', 'UsuariosController@index');
+Route::resource('usuarios', 'UsuariosController');
+Route::patch('usuarios/{id}/edit',[
+    'as' => 'usuarios.update',
+    'uses' => 'UsuariosController@update'
+]);
 
 
 //Rutas de login

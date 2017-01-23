@@ -22,7 +22,7 @@
     <script src="{{ asset('js/jQuery-2.1.4.min.js') }}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- AdminLTE App -->
+    <!-- AdminLTE App --> 
     <script src="{{ asset('js/app.min.js') }}"></script>
   <!--Datatables -->
     <script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
@@ -105,8 +105,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="usuarios"><i class="fa fa-circle-o"></i> Registrar usuarios</a></li>
-                <li><a href="usuarios/ver"><i class="fa fa-circle-o"></i> Ver usuarios</a></li>
+                <li><a href="{{url('usuarios/create') }}"><i class="fa fa-circle-o"></i> Registrar usuarios</a></li>
+                <li><a href="{{url('usuarios')}}"><i class="fa fa-circle-o"></i> Ver usuarios</a></li>
               </ul>
             </li>
             

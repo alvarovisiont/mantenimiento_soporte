@@ -69,7 +69,7 @@ class AuthController extends Controller
      * @return User
      */
 
-    public function index() {
+
 
           
 

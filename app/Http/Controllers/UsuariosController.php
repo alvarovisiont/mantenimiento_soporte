@@ -20,7 +20,7 @@ class UsuariosController extends Controller
             ->select('*')
             ->paginate(5);
 
-        return view('usuarios.ver', ['datos' => $datos]);
+        return view('usuarios.index', ['datos' => $datos]);
     
     }
 
@@ -31,7 +31,7 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        //
+        return view('usuarios.create');
     }
 
     /**
@@ -78,7 +78,11 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrfail($id);
+        $user->fill($request->all());
+        //dd($user);
+        $user->update();
+        return redirect('usuarios');
     }
 
     /**
