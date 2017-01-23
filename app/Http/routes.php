@@ -17,6 +17,8 @@ Route::get('mantenimiento_soporte', function () {
 
 Route::resource('departamentos', 'DepartamentosController');
 
+Route:: resource('equipos', 'EquiposController');
+
 //Rutas usuarios
 Route::get('usuarios',function () {
 	return view('usuarios.index');
