@@ -11,18 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('mantenimiento_soporte', function () {
     return view('auth.login');
 });
 
-Route::get('departamentos', 'DepartamentosController@index');
-
-Route::put('departamentos', 'DepartamentosController@modificar');
-
-//Route::post('log/store','LogController@store');
-Route::resource('log','LogController@store');
-
-Route::auth();
+Route::resource('departamentos', 'DepartamentosController');
 
 Route::get('layout',function() {
 	return view('layout.admin');
@@ -30,4 +23,5 @@ Route::get('layout',function() {
 
 Route::auth();
 
-Route::get('layout', 'HomeController@index');
+
+//Route::get('layout', 'HomeController@index');
