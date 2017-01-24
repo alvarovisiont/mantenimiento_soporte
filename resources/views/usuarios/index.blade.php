@@ -9,6 +9,16 @@
 } );
   </script>
 
+@if(Session::has('flash_message'))
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="alert alert-success alert-dismissable">
+		 <button type="button" class="close" data-dismiss="alert">&times;</button>
+		 <h4 class="text-center">{{Session::get('flash_message')}}</h4>
+	    </div>
+	</div>
+ </div>
+@endif
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
