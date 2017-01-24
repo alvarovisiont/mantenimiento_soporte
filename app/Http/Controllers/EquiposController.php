@@ -20,7 +20,6 @@ class EquiposController extends Controller
     public function index()
     {
         //
-        $usuario = Equipos::find(1)->traer_usuarios;
         $datos = Equipos::all();
         return view('equipos.index', ['datos' => $datos]);
 

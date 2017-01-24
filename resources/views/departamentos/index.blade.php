@@ -25,8 +25,8 @@
 									<td>{{$row->nombre}}</td>
 									<td>{{$row->descripcion}}</td>
 									<td>
-										<a href="{{url('departamentos/'.$row->id_departamento.'/edit')}}" style="display:inline-block">Editar</a>
-										@include('departamentos.eliminar', ['id' => $row->id_departamento])
+										<a href="{{url('departamentos/'.$row->id.'/edit')}}" style="display:inline-block">Editar</a>
+										@include('departamentos.eliminar', ['id' => $row->id])
 									</td>
 								</tr>
 							@endforeach
