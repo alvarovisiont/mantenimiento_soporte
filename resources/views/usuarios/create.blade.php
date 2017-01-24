@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Registrar</div>
                 <div class="panel-body">
-                    {!! Form::open(['url' => 'register', 'method' => 'POST' , 'class' => 'form-horizontal']) !!}
+                    {!! Form::open(['url' => 'usuarios', 'method' => 'POST' , 'class' => 'form-horizontal']) !!}
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('cedula') ? ' has-error' : '' }}">

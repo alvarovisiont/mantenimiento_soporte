@@ -68,20 +68,16 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
+<<<<<<< HEAD
           
+=======
+
+>>>>>>> d2a98303604409d849aff3f54a3f123d14e3fb28
 
     public function create(array $data)
     {
         //para redireccionar despues de registrar
-        $this->redirectTo = '/layout';
-        return User::create([
-            'cedula' => $data['cedula'],
-            'name'   => $data['name'],
-            'apellido' => $data['apellido'],
-            'usuario' => $data['usuario'],
-            'password' => bcrypt($data['password']),
-            'nivel' => $data['nivel'],
-        ]);
+       return "hola";
     }
 
 

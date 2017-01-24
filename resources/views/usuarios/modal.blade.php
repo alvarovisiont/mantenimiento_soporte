@@ -73,7 +73,8 @@ if($d->nivel == "3"){
 </div>
 
 <div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-delete-{{$d->id_user}}">
-	
+
+<!-- Modal de eliminar usuario -->	
 {{Form::Open(array('action'=>array('UsuariosController@destroy',$d->id_user), 'method' =>'delete','id' =>'form'))}}
 {{--<input type="hidden" name="_token" value="{{ csrf_token }}" id="token">--}}
 <div class="modal-dialog">
@@ -101,3 +102,5 @@ if($d->nivel == "3"){
 </div>
 {!! Form::close() !!}
 </div>
+<!-- fin eliminar usuario -->
+
