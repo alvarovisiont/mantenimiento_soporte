@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-01-2017 a las 19:00:27
--- Versión del servidor: 10.1.10-MariaDB
--- Versión de PHP: 5.5.33
+-- Tiempo de generación: 24-01-2017 a las 19:53:14
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,14 +23,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `actualizaciones`
+--
+
+CREATE TABLE `actualizaciones` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `equipo_id` int(10) UNSIGNED NOT NULL,
+  `descripcion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `departamentos`
 --
 
 CREATE TABLE `departamentos` (
-  `id_departamento` int(3) NOT NULL,
-  `nombre` varchar(120) NOT NULL,
-  `descripccion` varchar(260) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_departamento` int(10) UNSIGNED NOT NULL,
+  `laboradores_id` int(11) NOT NULL,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `descripcion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -39,18 +56,88 @@ CREATE TABLE `departamentos` (
 --
 
 CREATE TABLE `equipos` (
-  `id_equipo` int(4) NOT NULL,
-  `departamento_id` int(2) NOT NULL,
-  `bien_mueble` varchar(120) COLLATE utf8_spanish_ci NOT NULL,
-  `id_trabajador` int(11) NOT NULL,
-  `ip_equipo` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
-  `capacidad` varchar(220) COLLATE utf8_spanish_ci NOT NULL,
-  `fallas` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
-  `reporte` varchar(1100) COLLATE utf8_spanish_ci NOT NULL,
-  `actualizacion` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '0',
-  `fecha_reg_equipos` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id` int(10) UNSIGNED NOT NULL,
+  `trabajador_id` int(11) NOT NULL,
+  `soporte_id` int(10) UNSIGNED NOT NULL,
+  `bm` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `nom_equipo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `ip` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `descripcion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `laboradores`
+--
+
+CREATE TABLE `laboradores` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tareas_id` int(10) UNSIGNED NOT NULL,
+  `equipo_id` int(10) UNSIGNED NOT NULL,
+  `nombre_completo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `cedula` int(11) NOT NULL,
+  `telefono` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `departamento_id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `migrations`
+--
+
+INSERT INTO `migrations` (`migration`, `batch`) VALUES
+('2014_10_12_000000_create_users_table', 1),
+('2014_10_12_100000_create_password_resets_table', 1),
+('2017_01_23_132748_create_equipos_table', 2),
+('2017_01_23_133850_create_actualizaciones_table', 2),
+('2017_01_24_100819_create_tareas_table', 2),
+('2017_01_24_110456_create_departamentos_table', 2),
+('2017_01_24_111314_create_laboradores_table', 2),
+('2017_01_24_133750_create_soportes_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `soportes`
+--
+
+CREATE TABLE `soportes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre_completo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `cedula` int(11) NOT NULL,
+  `tareas_id` int(10) UNSIGNED NOT NULL,
+  `actualizaciones_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -59,73 +146,221 @@ CREATE TABLE `equipos` (
 --
 
 CREATE TABLE `tareas` (
-  `id_tarea` int(5) NOT NULL,
-  `mensaje` varchar(1000) NOT NULL,
-  `foto_tarea` varchar(100) NOT NULL,
-  `usuario_id` int(2) NOT NULL,
-  `departamento_id` int(2) NOT NULL,
-  `fecha_reg_tarea` varchar(18) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(10) UNSIGNED NOT NULL,
+  `trabajador_id` int(11) NOT NULL,
+  `equipo_id` int(10) UNSIGNED NOT NULL,
+  `descripcion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fecha_tarea` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Estructura de tabla para la tabla `users`
 --
 
-CREATE TABLE `usuario` (
-  `id_user` int(2) NOT NULL,
-  `id_tarea` int(5) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `apellido` varchar(120) NOT NULL,
-  `usuario` varchar(50) NOT NULL,
-  `pass` varchar(8) NOT NULL,
-  `nivel` varchar(16) NOT NULL,
-  `activo` int(1) NOT NULL DEFAULT '0',
-  `fecha_reg` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
+  `apellido` varchar(155) COLLATE utf8_unicode_ci NOT NULL,
+  `usuario` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(75) COLLATE utf8_unicode_ci NOT NULL,
+  `nivel` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `apellido`, `usuario`, `password`, `nivel`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Fran', 'Fran', 'fran', '$2y$10$1t25DYdMSmv739AyOpYjyupg3RgRxyRCgm.7IRsYlZInqA3epO1KK', '1', 'IH3VGC2JJpk7w21njJcCM2v77rtSw5DC6lpa6gd1EldnFAHUBapexvVZwMIL', '2017-01-20 18:21:22', '2017-01-23 15:00:16'),
+(2, 'Fran', 'Hernandez', 'francis', '$2y$10$KXUP7qBesT5lnaLY9BDzpuoae5m86A9R.ZP2fGOurlAYodMsJNQpO', '3', 'j9guBu9XXMHjPQX7DSEol2pRjIX5rb5EMt7rkCnqrUlzXXjSOcCIXahfuIA5', '2017-01-20 18:31:20', '2017-01-20 18:31:24'),
+(3, 'Zulima', 'Cordero', 'kaka', '$2y$10$pZkYNa/Qe4Z2nlIwruk.O.sw23mtrcyr0SiIiJ2s58ncAGCINYWN6', '2', '2lrEgGQP2UXI8cUdFFt0McvOnlbeFLivdGMB862AHLhfAW8JZdKzxgaPc1VR', '2017-01-20 18:56:33', '2017-01-20 18:56:33'),
+(4, 'Manu', 'manu', 'manu', '$2y$10$5pbmNiolqTm4krn7pTIkVeCh.sz7.VGewF0iz92wBfgwxbJrjayeq', '1', 'RRmARsXwrHBdbbvHnAFrgCIXxIOcGHTJxu9CC5PjKhZFAnNIDhqd5c1Q3o14', '2017-01-20 19:01:49', '2017-01-20 19:05:03'),
+(5, 'zulima', 'zulima', 'zuli', '$2y$10$HRPN38Q6k6FXlJ.7k0fi4u1flbnVuxrXaFW1B2Nya5rtJSa6gOdhi', '1', 'DKrI9umlXkQgGcpPFL6TwR7c8Xd8uutCzhWVCw8nIRilKqxd8prfCDWVT1Us', '2017-01-23 12:09:43', '2017-01-23 12:27:34'),
+(6, 'fran', 'fran', 'ronaldo', '$2y$10$.6nx1PW02kFDxJm857PNSOXUT0tPk2iHw0Kp.eRlTuIQjva5JaftG', '1', 'JxrT6NGWErG1xZF87XqPbN6WIjZAetBXAJIA6drfPbU27tiAFtsiaS2LW9gd', '2017-01-23 13:08:01', '2017-01-23 13:08:47');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users1`
+--
+
+CREATE TABLE `users1` (
+  `id_user` int(10) UNSIGNED NOT NULL,
+  `id_tarea` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `cedula` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
+  `apellido` varchar(155) COLLATE utf8_unicode_ci NOT NULL,
+  `usuario` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `nivel` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `users1`
+--
+
+INSERT INTO `users1` (`id_user`, `id_tarea`, `cedula`, `name`, `apellido`, `usuario`, `password`, `nivel`, `remember_token`, `created_at`, `updated_at`) VALUES
+(17, '', '20990397', 'Fran', 'Fran', 'fran', '$2y$10$1t25DYdMSmv739AyOpYjyupg3RgRxyRCgm.7IRsYlZInqA3epO1KK', '1', 'IH3VGC2JJpk7w21njJcCM2v77rtSw5DC6lpa6gd1EldnFAHUBapexvVZwMIL', '2017-01-20 18:21:22', '2017-01-23 15:00:16'),
+(18, '', '0', 'Fran', 'Hernandez', 'francis', '$2y$10$KXUP7qBesT5lnaLY9BDzpuoae5m86A9R.ZP2fGOurlAYodMsJNQpO', '3', 'j9guBu9XXMHjPQX7DSEol2pRjIX5rb5EMt7rkCnqrUlzXXjSOcCIXahfuIA5', '2017-01-20 18:31:20', '2017-01-20 18:31:24'),
+(19, '', '', 'Zulima', 'Cordero', 'kaka', '$2y$10$pZkYNa/Qe4Z2nlIwruk.O.sw23mtrcyr0SiIiJ2s58ncAGCINYWN6', '2', '2lrEgGQP2UXI8cUdFFt0McvOnlbeFLivdGMB862AHLhfAW8JZdKzxgaPc1VR', '2017-01-20 18:56:33', '2017-01-20 18:56:33'),
+(20, '', '', 'Manu', 'manu', 'manu', '$2y$10$5pbmNiolqTm4krn7pTIkVeCh.sz7.VGewF0iz92wBfgwxbJrjayeq', '1', 'RRmARsXwrHBdbbvHnAFrgCIXxIOcGHTJxu9CC5PjKhZFAnNIDhqd5c1Q3o14', '2017-01-20 19:01:49', '2017-01-20 19:05:03'),
+(21, '', '', 'zulima', 'zulima', 'zuli', '$2y$10$HRPN38Q6k6FXlJ.7k0fi4u1flbnVuxrXaFW1B2Nya5rtJSa6gOdhi', '1', 'DKrI9umlXkQgGcpPFL6TwR7c8Xd8uutCzhWVCw8nIRilKqxd8prfCDWVT1Us', '2017-01-23 12:09:43', '2017-01-23 12:27:34'),
+(22, '', '', 'fran', 'fran', 'ronaldo', '$2y$10$.6nx1PW02kFDxJm857PNSOXUT0tPk2iHw0Kp.eRlTuIQjva5JaftG', '1', 'JxrT6NGWErG1xZF87XqPbN6WIjZAetBXAJIA6drfPbU27tiAFtsiaS2LW9gd', '2017-01-23 13:08:01', '2017-01-23 13:08:47');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `actualizaciones`
+--
+ALTER TABLE `actualizaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `actualizaciones_equipo_id_foreign` (`equipo_id`);
+
+--
+-- Indices de la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  ADD PRIMARY KEY (`id_departamento`);
+
+--
 -- Indices de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  ADD PRIMARY KEY (`id_equipo`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `laboradores`
+--
+ALTER TABLE `laboradores`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `laboradores_departamento_id_foreign` (`departamento_id`),
+  ADD KEY `laboradores_tareas_id_foreign` (`tareas_id`),
+  ADD KEY `laboradores_equipo_id_foreign` (`equipo_id`);
+
+--
+-- Indices de la tabla `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`),
+  ADD KEY `password_resets_token_index` (`token`);
+
+--
+-- Indices de la tabla `soportes`
+--
+ALTER TABLE `soportes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `soportes_tareas_id_foreign` (`tareas_id`),
+  ADD KEY `soportes_actualizaciones_id_foreign` (`actualizaciones_id`);
 
 --
 -- Indices de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  ADD PRIMARY KEY (`id_tarea`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tareas_equipo_id_foreign` (`equipo_id`);
 
 --
--- Indices de la tabla `usuario`
+-- Indices de la tabla `users`
 --
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_user`);
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_usuario_unique` (`usuario`);
+
+--
+-- Indices de la tabla `users1`
+--
+ALTER TABLE `users1`
+  ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `users_usuario_unique` (`usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
+-- AUTO_INCREMENT de la tabla `actualizaciones`
+--
+ALTER TABLE `actualizaciones`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `departamentos`
+--
+ALTER TABLE `departamentos`
+  MODIFY `id_departamento` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id_equipo` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `laboradores`
+--
+ALTER TABLE `laboradores`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `soportes`
+--
+ALTER TABLE `soportes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `id_tarea` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT de la tabla `users`
 --
-ALTER TABLE `usuario`
-  MODIFY `id_user` int(2) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `users1`
+--
+ALTER TABLE `users1`
+  MODIFY `id_user` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `actualizaciones`
+--
+ALTER TABLE `actualizaciones`
+  ADD CONSTRAINT `actualizaciones_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`);
+
+--
+-- Filtros para la tabla `laboradores`
+--
+ALTER TABLE `laboradores`
+  ADD CONSTRAINT `laboradores_departamento_id_foreign` FOREIGN KEY (`departamento_id`) REFERENCES `departamentos` (`id_departamento`),
+  ADD CONSTRAINT `laboradores_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`),
+  ADD CONSTRAINT `laboradores_tareas_id_foreign` FOREIGN KEY (`tareas_id`) REFERENCES `tareas` (`id`);
+
+--
+-- Filtros para la tabla `soportes`
+--
+ALTER TABLE `soportes`
+  ADD CONSTRAINT `soportes_actualizaciones_id_foreign` FOREIGN KEY (`actualizaciones_id`) REFERENCES `actualizaciones` (`id`),
+  ADD CONSTRAINT `soportes_tareas_id_foreign` FOREIGN KEY (`tareas_id`) REFERENCES `tareas` (`id`);
+
+--
+-- Filtros para la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  ADD CONSTRAINT `tareas_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
