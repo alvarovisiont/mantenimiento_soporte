@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFallasTable extends Migration
+class CreateDepartamentosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,11 @@ class CreateFallasTable extends Migration
      */
     public function up()
     {
-        Schema::create('fallas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('equipo_id')->unsigned();
+        Schema::create('departamentos', function (Blueprint $table) {
+            $table->increments('id_departamento');
+            $table->integer('laboradores_id');
+            $table->string('nombre');
             $table->string('descripcion');
-            $table->integer('status')->unsigned();
-            $table->foreign('equipo_id')->references('id')->on('equipos');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateFallasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('fallas');
+        Schema::drop('departamentos');
     }
 }

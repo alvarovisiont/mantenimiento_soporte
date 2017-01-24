@@ -1,5 +1,11 @@
 {!! Form::open(['class' => 'form-horizontal', 'url' => $url, 'method' => $method]) !!}
 	<div class="form-group">
+		{!! Form::label('users', 'Usuario',['class' => 'control-label col-md-2']) !!}
+		<div class="col-md-3">
+			{!! Form::select('users_id',['a' => 'under 18', 'b' => 'under 19', 'c' => 'under 20'],'c', ['class' => 'form-control', 'required']) !!}	
+		</div>
+	</div>
+	<div class="form-group">
 		{!! Form::label('bm', 'Bien Mueble',['class' => 'control-label col-md-2']) !!}
 		<div class="col-md-3">
 			{!! Form::text('bm', $equipo->bm,['class' => 'form-control', 'required', 'placeholder' => "Indique el nombre del Bien Mueble" ]) !!}	
@@ -16,7 +22,7 @@
 		</div>
 		{!! Form::label('descripcion', 'Descripcion del equipo',['class' => 'control-label col-md-2']) !!}
 		<div class="col-md-3">
-			{!! Form::text('descripcion', $equipo->descripcion,['class' => 'form-control', 'required', 'placeholder' => "Indique la descripción del equipo" ]) !!}	
+			{!! Form::textarea('descripcion', $equipo->descripcion,['class' => 'form-control', 'required', 'placeholder' => "Indique la descripción del equipo", 'rows' => '5', 'cols' => '3' ]) !!}	
 		</div>
 	</div>
 	<div class="form-group">

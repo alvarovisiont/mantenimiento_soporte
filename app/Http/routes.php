@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('mantenimiento_soporte', function () {
+Route::get('/', function () {
     return view('auth.login');
 });
 

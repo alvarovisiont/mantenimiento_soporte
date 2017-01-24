@@ -14,7 +14,9 @@ class CreateActualizacionesTable extends Migration
     {
         Schema::create('actualizaciones', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('equipo_id')->unsigned();
             $table->string('descripcion');
+            $table->foreign('equipo_id')->references('id')->on('equipos');
             $table->timestamps();
         });
     }

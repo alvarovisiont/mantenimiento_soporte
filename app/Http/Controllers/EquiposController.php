@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Equipos;
 
+use Illuminate\Support\Facades\DB;
+
 class EquiposController extends Controller
 {
     /**
@@ -18,8 +20,10 @@ class EquiposController extends Controller
     public function index()
     {
         //
+        $usuario = Equipos::find(1)->traer_usuarios;
         $datos = Equipos::all();
         return view('equipos.index', ['datos' => $datos]);
+
 
     }
 
