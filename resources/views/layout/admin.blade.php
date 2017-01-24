@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}"></link>
     <link rel="stylesheet" href="{{ asset('plugins/datatables/jquery.dataTables.css') }}"></link>
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}"></link>
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
@@ -26,8 +26,9 @@
     <!-- AdminLTE App --> 
     <script src="{{ asset('js/app.min.js') }}"></script>
   <!--Datatables -->
-    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.js') }}"></script>
     <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <!--<script src="{{ asset('json/esp.json') }}"></script>-->
 
 
   
@@ -110,17 +111,26 @@
                 <li><a href="{{url('usuarios')}}"><i class="fa fa-circle-o"></i> Ver usuarios</a></li>
               </ul>
             </li>
-            
-            
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Departamentos</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i>Agregar Departamentos</a></li>
-                <li><a href="departamentos"><i class="fa fa-circle-o"></i>Administrar Departamentos</a></li>
+                <li><a href="{{url('departamentos/create')}}"><i class="fa fa-circle-o"></i>Agregar Departamentos</a></li>
+                <li><a href="{{url('departamentos')}}"><i class="fa fa-circle-o"></i>Administrar Departamentos</a></li>
                 
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-folder"></i> <span>Equipos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{url('equipos')}}"><i class="fa fa-circle-o"></i>Administración de equipos</a></li>
+                <li><a href="{{url('fallas')}}"><i class="fa fa-circle-o"></i>Fallas de equipos</a></li>
+                <li><a href="{{url('actualizaciones')}}"><i class="fa fa-circle-o"></i>Datos de Actualizaciones</a></li>
               </ul>
             </li>
              <li>

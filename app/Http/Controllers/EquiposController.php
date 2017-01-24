@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Departamentos;
+use App\Http\Requests;
 
-use Illuminate\Support\Facades\DB;
+use App\Equipos;
 
-use Illuminate\Support\Facades\Redirect;
-
-class DepartamentosController extends Controller
+class EquiposController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +18,9 @@ class DepartamentosController extends Controller
     public function index()
     {
         //
-        $datos = DB::table('departamentos')->get();
-        return view('departamentos.index', ['datos' => $datos]);
+        $datos = Equipos::all();
+        return view('equipos.index', ['datos' => $datos]);
+
     }
 
     /**
@@ -32,8 +31,6 @@ class DepartamentosController extends Controller
     public function create()
     {
         //
-        $departamentos = new Departamentos;
-        return view('departamentos.crear', ['departamentos' => $departamentos]);
     }
 
     /**
@@ -45,11 +42,6 @@ class DepartamentosController extends Controller
     public function store(Request $request)
     {
         //
-        $departamento = new Departamentos;
-        $departamento->nombre = $request->nombre;
-        $departamento->descripcion = $request->descripcion;
-        $departamento->save();
-        return Redirect::to('departamentos');
     }
 
     /**
@@ -72,8 +64,8 @@ class DepartamentosController extends Controller
     public function edit($id)
     {
         //
-        $departamento = Departamentos::find($id);
-        return view("departamentos.edit", ['departamentos' => $departamento]);
+        $equipo = Equipos::find($id);
+        return view('equipos.edit', ['equipo' => $equipo]);
     }
 
     /**
@@ -86,10 +78,6 @@ class DepartamentosController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $user = Departamentos::findOrFail($id);
-        $user->fill($request->all());
-        $user->save();
-        return Redirect::to('departamentos');
     }
 
     /**
@@ -101,7 +89,5 @@ class DepartamentosController extends Controller
     public function destroy($id)
     {
         //
-        Departamentos::destroy($id);
-        return redirect('departamentos');
     }
 }

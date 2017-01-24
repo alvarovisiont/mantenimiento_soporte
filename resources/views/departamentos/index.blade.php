@@ -6,7 +6,7 @@
 				<div class="jumbotron">
 					<div class="form-group">
 						<h1 style="display:inline-block">Departamentos</h1>
-						<a href="{{url('departamentos/create')}}" class="btn btn-success btn-lg pull-right">Registrar Departamento</a>	
+						<a href="{{url('departamentos/create')}}" class="btn btn-success btn-lg pull-right">Registrar Departamento&nbsp;<i class="fa fa-plus"></i></a>	
 					</div>
 				</div>
 				<br><br>
@@ -15,7 +15,7 @@
 						<thead>
 							<th class="text-center">Nombre</th>
 							<th class="text-center">Descripción</th>
-							<th></th>
+							<th class="text-center">Acción</th>
 						</thead>
 						<tbody class="text-center">
 							@foreach($datos as $row)
@@ -25,7 +25,7 @@
 									<td>{{$row->nombre}}</td>
 									<td>{{$row->descripcion}}</td>
 									<td>
-										<a href="{{url('departamentos/'.$row->id_departamento.'/edit')}}"">Editar</a>
+										<a href="{{url('departamentos/'.$row->id_departamento.'/edit')}}" style="display:inline-block">Editar</a>
 										@include('departamentos.eliminar', ['id' => $row->id_departamento])
 									</td>
 								</tr>
@@ -38,7 +38,7 @@
 	</div>
 	<script>
 		$(function(){
-			//$("table").dataTable();
+			$("table").dataTable();
 			function pregunta()
 			{
 				var agree = confirm("Esta seguro de querer eliminar este registro?");

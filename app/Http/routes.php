@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::resource('departamentos', 'DepartamentosController');
 
+Route:: resource('equipos', 'EquiposController');
+
 //Rutas usuarios
 Route::resource('usuarios', 'UsuariosController');
 Route::patch('usuarios/{id}/edit',[
