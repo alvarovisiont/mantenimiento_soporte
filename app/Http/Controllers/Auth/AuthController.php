@@ -69,6 +69,7 @@ class AuthController extends Controller
      * @return User
      */
 
+
     public function create(array $data)
     {
         //para redireccionar despues de registrar

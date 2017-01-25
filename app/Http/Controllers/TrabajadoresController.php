@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
+
 use App\Http\Requests;
-use App\Http\Requests\SoporteRequest;
-use Illuminate\Support\Facades\Redirect;
-use App\Soporte;
+use App\Laboradores;
 
-
-use Illuminate\Support\Facades\DB;
-
-class SoportesController extends Controller
+class TrabajadoresController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +17,6 @@ class SoportesController extends Controller
     public function index()
     {
         //
-        $datos = DB::table('soportes')->get();
-        return view('soportes.index', ['datos' => $datos]);
-
     }
 
     /**
@@ -34,7 +26,7 @@ class SoportesController extends Controller
      */
     public function create()
     {
-        return view('soportes.create');
+        //
     }
 
     /**
@@ -43,14 +35,9 @@ class SoportesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SoporteRequest $request)
+    public function store(Request $request)
     {
-        
-        $soporte = new Soporte();
-        $soporte->fill($request->all());
-        $soporte->save();
-        Session::flash('flash_message', 'Se ha registrado de manera exitosa!');
-        return Redirect::to('soportes');
+        //
     }
 
     /**
@@ -84,11 +71,7 @@ class SoportesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $soporte = Soporte::findOrfail($id);
-        $soporte->fill($request->all());
-        //dd($user);
-        $soporte->update();
-        return redirect('soportes');
+        //
     }
 
     /**
@@ -99,7 +82,6 @@ class SoportesController extends Controller
      */
     public function destroy($id)
     {
-        $soporte = Soporte::findOrfail($id);
-        $sorpote->delete();
+        //
     }
 }

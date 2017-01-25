@@ -1,4 +1,5 @@
 {!! Form::open(['class' => 'form-horizontal', 'url' => $url, 'method' => $method]) !!}
+
 	<div class="form-group">
 		<div class="col-md-7 col-md-offset-1">
 			{!! Form::text('nombre', $departamentos->nombre,['class' => 'form-control', 'required', 'placeholder' => "Indique el nombre del departamento" ]) !!}	
