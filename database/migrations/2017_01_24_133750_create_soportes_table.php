@@ -16,8 +16,6 @@ class CreateSoportesTable extends Migration
             $table->increments('id');
             $table->string('nombre_completo');
             $table->integer('cedula');
-            $table->integer('tareas_id')->unsigned();
-            $table->integer('actualizaciones_id')->unsigned();
             $table->timestamps();
         });
     }

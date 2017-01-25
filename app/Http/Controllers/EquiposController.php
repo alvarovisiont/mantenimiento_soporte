@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Http\Requests\EquiposRequest;
+
 use App\Equipos;
 
 use Illuminate\Support\Facades\DB;
+
 
 class EquiposController extends Controller
 {
@@ -34,6 +37,8 @@ class EquiposController extends Controller
     public function create()
     {
         //
+        $equipo = new Equipos;
+        return view('equipos.crear', ['equipo' => $equipo]);
     }
 
     /**
@@ -42,9 +47,14 @@ class EquiposController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EquiposRequest $request)
     {
         //
+        $equipo = new Equipos;
+        $equipo->fill($request->all());
+        $equipo->save();
+        return redirect('equipos');
+
     }
 
     /**
@@ -81,6 +91,10 @@ class EquiposController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $equipo = Equipos::findOrFail($id);
+        $equipo->fill($request->all());
+        $equipo->save();
+        return redirect('equipos');
     }
 
     /**
@@ -92,5 +106,7 @@ class EquiposController extends Controller
     public function destroy($id)
     {
         //
+        Equipos::destroy($id);
+        return redirect('equipos');
     }
 }

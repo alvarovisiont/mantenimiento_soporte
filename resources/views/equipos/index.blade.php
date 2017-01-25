@@ -4,6 +4,9 @@
 	<div class="row">
 		<div class="containter">
 			<div class="col-md-12">
+				<div class="form-group">
+					<a href="{{url('equipos/create')}}" class="btn btn-primary btn-block btn-md">Agregar Equipo&nbsp;&nbsp;<i class="fa fa-desktop"></i></a>
+				</div>
 				<table class="table table-bordered table-hover table-condensed">
 					<thead>
 						<th class="text-center">Bien Mueble</th>
@@ -13,7 +16,6 @@
 						<th class="text-center">Nº Fallas</th>
 						<th class="text-center">Nº Atenciones Pendientes</th>
 						<th class="text-center">Nº Actualizaciones</th>
-						<th class="text-center">Soporte</th>
 						<th class="text-center">Descripción</th>
 						<th class="text-center">Acción</th>
 					</thead>
@@ -29,7 +31,6 @@
 								<td>{{$row->nom_equipo}}</td>
 								<td>{{$row->usuario}}</td>
 								<td>{{$row->ip}}</td>
-								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -68,6 +69,24 @@
 			var x = $(e.relatedTarget).data().descripcion;
 					$(e.currentTarget).find("#descripcion").html('');
 					$(e.currentTarget).find("#descripcion").html(x);
+		});
+
+		function pregunta()
+		{
+			var agree = confirm("¿Esta seguro de querer borrar realmente este registro?");
+			return agree;
+		}
+
+		$(".eliminar").click(function(){
+			var confirm = pregunta();
+			if(confirm)
+			{
+				return confirm;
+			}
+			else
+			{
+				return confirm;	
+			}
 		});
 	});
 </script>
