@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Equipos;
+use App\Soporte;
 
 use Illuminate\Support\Facades\DB;
 
-class EquiposController extends Controller
+class SoportesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,8 @@ class EquiposController extends Controller
     public function index()
     {
         //
-        $datos = Equipos::all();
-        return view('equipos.index', ['datos' => $datos]);
-
+        $datos = DB::table('soportes')->get();
+        return view('soportes.index', ['datos' => $datos]);
 
     }
 
@@ -67,8 +66,6 @@ class EquiposController extends Controller
     public function edit($id)
     {
         //
-        $equipo = Equipos::find($id);
-        return view('equipos.edit', ['equipo' => $equipo]);
     }
 
     /**

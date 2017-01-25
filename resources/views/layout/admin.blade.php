@@ -133,6 +133,7 @@
                 <li><a href="{{url('actualizaciones')}}"><i class="fa fa-circle-o"></i>Datos de Actualizaciones</a></li>
               </ul>
             </li>
+<<<<<<< HEAD
 
             <li class="treeview">
               <a href="#">
@@ -143,6 +144,16 @@
                 <li><a href="{{url('trabajadores/create')}}"><i class="fa fa-circle-o"></i>Agregar Trabajadores</a></li>
                 <li><a href="{{url('trabajadores')}}"><i class="fa fa-circle-o"></i>Administrar Trabajadores</a></li>
                 
+=======
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-folder"></i> <span>Soporte</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{url('soportes/create')}}"><i class="fa fa-circle-o"></i>Agregar Soportes</a></li>
+                <li><a href="{{url('soportes')}}"><i class="fa fa-circle-o"></i>Administración de Soportes</a></li>
+>>>>>>> 09a432ec72aa625012e037638afe01519c7f676a
               </ul>
             </li>
              <li>
