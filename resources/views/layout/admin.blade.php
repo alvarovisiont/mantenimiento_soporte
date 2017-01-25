@@ -133,7 +133,6 @@
                 <li><a href="{{url('actualizaciones')}}"><i class="fa fa-circle-o"></i>Datos de Actualizaciones</a></li>
               </ul>
             </li>
-<<<<<<< HEAD
 
             <li class="treeview">
               <a href="#">
@@ -143,17 +142,17 @@
               <ul class="treeview-menu">
                 <li><a href="{{url('trabajadores/create')}}"><i class="fa fa-circle-o"></i>Agregar Trabajadores</a></li>
                 <li><a href="{{url('trabajadores')}}"><i class="fa fa-circle-o"></i>Administrar Trabajadores</a></li>
-                
-=======
-            <li class="treeview">
+              </ul>
+            </li>
+                         <li class="treeview">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Soporte</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{url('soportes/create')}}"><i class="fa fa-circle-o"></i>Agregar Soportes</a></li>
-                <li><a href="{{url('soportes')}}"><i class="fa fa-circle-o"></i>Administración de Soportes</a></li>
->>>>>>> 09a432ec72aa625012e037638afe01519c7f676a
+                <li><a href="{{url('soportes/create')}}"><i class="fa fa-circle-o"></i>Agregar Soporte</a></li>
+                <li><a href="{{url('soportes')}}"><i class="fa fa-circle-o"></i>Administración de Soporte</a></li>
+
               </ul>
             </li>
              <li>
@@ -193,11 +192,7 @@
               <div class="box">
                 <div class="box-header with-border">
                   <h3 class="box-title">Sistema </h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
+                  
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
