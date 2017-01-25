@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLaboradoresTable extends Migration
+class CreateTrabajadoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,17 @@ class CreateLaboradoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('laboradores', function (Blueprint $table) {
+        Schema::create('trabajadores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tareas_id')->lenght(10)->unsigned();
-            $table->integer('equipo_id')->unsigned();
+            $table->integer('tareas_id')->unsigned();
+            $table->integer('equipos_id')->unsigned();
             $table->string('nombre_completo');
             $table->integer('cedula');
             $table->string('telefono', 15);
-            $table->integer('departamento_id')->lenght(10)->unsigned();
+            $table->integer('departamento_id')->unsigned();
             $table->string('email', 50);
             $table->foreign('departamento_id')->references('id')->on('departamentos');
-            $table->foreign('tareas_id')->references('id')->on('tareas');
-            $table->foreign('equipo_id')->references('id')->on('equipos');
+            $table->foreign('equipos_id')->references('id')->on('equipos');
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ class CreateLaboradoresTable extends Migration
      */
     public function down()
     {
-        Schema::drop('laboradores');
+        Schema::drop('trabajadores');
     }
 }

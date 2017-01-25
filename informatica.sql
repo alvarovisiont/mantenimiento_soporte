@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-01-2017 a las 20:15:47
+-- Tiempo de generación: 25-01-2017 a las 04:41:59
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -28,7 +28,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `actualizaciones` (
   `id` int(10) UNSIGNED NOT NULL,
-  `equipo_id` int(10) UNSIGNED NOT NULL,
+  `equipos_id` int(10) UNSIGNED NOT NULL,
+  `soportes_id` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -42,19 +43,12 @@ CREATE TABLE `actualizaciones` (
 
 CREATE TABLE `departamentos` (
   `id` int(10) UNSIGNED NOT NULL,
-  `laboradores_id` int(11) NOT NULL,
+  `trabajadores_id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `departamentos`
---
-
-INSERT INTO `departamentos` (`id`, `laboradores_id`, `nombre`, `descripcion`, `created_at`, `updated_at`) VALUES
-(1, 0, 'Alcaldia', 'alcaldeando', '2017-01-24 13:41:07', '2017-01-24 13:42:42');
 
 -- --------------------------------------------------------
 
@@ -64,31 +58,11 @@ INSERT INTO `departamentos` (`id`, `laboradores_id`, `nombre`, `descripcion`, `c
 
 CREATE TABLE `equipos` (
   `id` int(10) UNSIGNED NOT NULL,
-  `trabajador_id` int(11) NOT NULL,
-  `soporte_id` int(10) UNSIGNED NOT NULL,
+  `trabajador_id` int(10) UNSIGNED NOT NULL,
   `bm` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nom_equipo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `ip` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `laboradores`
---
-
-CREATE TABLE `laboradores` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `tareas_id` int(10) UNSIGNED NOT NULL,
-  `equipo_id` int(10) UNSIGNED NOT NULL,
-  `nombre_completo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `cedula` int(11) NOT NULL,
-  `telefono` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `departamento_id` int(10) UNSIGNED NOT NULL,
-  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -112,11 +86,11 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2014_10_12_000000_create_users_table', 1),
 ('2014_10_12_100000_create_password_resets_table', 1),
 ('2017_01_23_132748_create_equipos_table', 1),
-('2017_01_23_133850_create_actualizaciones_table', 1),
-('2017_01_24_100819_create_tareas_table', 1),
 ('2017_01_24_110456_create_departamentos_table', 1),
-('2017_01_24_111314_create_laboradores_table', 1),
-('2017_01_24_133750_create_soportes_table', 1);
+('2017_01_24_133750_create_soportes_table', 1),
+('2017_01_24_230434_create_trabajadores_table', 1),
+('2017_01_24_230623_create_actualizaciones_table', 1),
+('2017_01_24_230743_create_tareas_table', 1);
 
 -- --------------------------------------------------------
 
@@ -154,11 +128,31 @@ CREATE TABLE `soportes` (
 
 CREATE TABLE `tareas` (
   `id` int(10) UNSIGNED NOT NULL,
-  `trabajador_id` int(11) NOT NULL,
+  `trabajadores_id` int(10) UNSIGNED NOT NULL,
+  `soporte` int(10) UNSIGNED NOT NULL,
   `equipo_id` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `fecha_tarea` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `tipo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `trabajadores`
+--
+
+CREATE TABLE `trabajadores` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tareas_id` int(10) UNSIGNED NOT NULL,
+  `equipos_id` int(10) UNSIGNED NOT NULL,
+  `nombre_completo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `cedula` int(11) NOT NULL,
+  `telefono` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `departamento_id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -234,7 +228,8 @@ INSERT INTO `users1` (`id_user`, `id_tarea`, `cedula`, `name`, `apellido`, `usua
 --
 ALTER TABLE `actualizaciones`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `actualizaciones_equipo_id_foreign` (`equipo_id`);
+  ADD KEY `actualizaciones_equipos_id_foreign` (`equipos_id`),
+  ADD KEY `actualizaciones_soportes_id_foreign` (`soportes_id`);
 
 --
 -- Indices de la tabla `departamentos`
@@ -249,15 +244,6 @@ ALTER TABLE `equipos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `laboradores`
---
-ALTER TABLE `laboradores`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `laboradores_departamento_id_foreign` (`departamento_id`),
-  ADD KEY `laboradores_tareas_id_foreign` (`tareas_id`),
-  ADD KEY `laboradores_equipo_id_foreign` (`equipo_id`);
-
---
 -- Indices de la tabla `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -268,16 +254,23 @@ ALTER TABLE `password_resets`
 -- Indices de la tabla `soportes`
 --
 ALTER TABLE `soportes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `soportes_tareas_id_foreign` (`tareas_id`),
-  ADD KEY `soportes_actualizaciones_id_foreign` (`actualizaciones_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `tareas`
 --
 ALTER TABLE `tareas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `tareas_equipo_id_foreign` (`equipo_id`);
+  ADD KEY `tareas_equipo_id_foreign` (`equipo_id`),
+  ADD KEY `tareas_trabajadores_id_foreign` (`trabajadores_id`);
+
+--
+-- Indices de la tabla `trabajadores`
+--
+ALTER TABLE `trabajadores`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `trabajadores_departamento_id_foreign` (`departamento_id`),
+  ADD KEY `trabajadores_equipos_id_foreign` (`equipos_id`);
 
 --
 -- Indices de la tabla `users`
@@ -306,16 +299,11 @@ ALTER TABLE `actualizaciones`
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT de la tabla `laboradores`
---
-ALTER TABLE `laboradores`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `soportes`
@@ -326,6 +314,11 @@ ALTER TABLE `soportes`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `trabajadores`
+--
+ALTER TABLE `trabajadores`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -345,28 +338,22 @@ ALTER TABLE `users1`
 -- Filtros para la tabla `actualizaciones`
 --
 ALTER TABLE `actualizaciones`
-  ADD CONSTRAINT `actualizaciones_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`);
-
---
--- Filtros para la tabla `laboradores`
---
-ALTER TABLE `laboradores`
-  ADD CONSTRAINT `laboradores_departamento_id_foreign` FOREIGN KEY (`departamento_id`) REFERENCES `departamentos` (`id`),
-  ADD CONSTRAINT `laboradores_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`),
-  ADD CONSTRAINT `laboradores_tareas_id_foreign` FOREIGN KEY (`tareas_id`) REFERENCES `tareas` (`id`);
-
---
--- Filtros para la tabla `soportes`
---
-ALTER TABLE `soportes`
-  ADD CONSTRAINT `soportes_actualizaciones_id_foreign` FOREIGN KEY (`actualizaciones_id`) REFERENCES `actualizaciones` (`id`),
-  ADD CONSTRAINT `soportes_tareas_id_foreign` FOREIGN KEY (`tareas_id`) REFERENCES `tareas` (`id`);
+  ADD CONSTRAINT `actualizaciones_equipos_id_foreign` FOREIGN KEY (`equipos_id`) REFERENCES `equipos` (`id`),
+  ADD CONSTRAINT `actualizaciones_soportes_id_foreign` FOREIGN KEY (`soportes_id`) REFERENCES `soportes` (`id`);
 
 --
 -- Filtros para la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  ADD CONSTRAINT `tareas_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`);
+  ADD CONSTRAINT `tareas_equipo_id_foreign` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`),
+  ADD CONSTRAINT `tareas_trabajadores_id_foreign` FOREIGN KEY (`trabajadores_id`) REFERENCES `trabajadores` (`id`);
+
+--
+-- Filtros para la tabla `trabajadores`
+--
+ALTER TABLE `trabajadores`
+  ADD CONSTRAINT `trabajadores_departamento_id_foreign` FOREIGN KEY (`departamento_id`) REFERENCES `departamentos` (`id`),
+  ADD CONSTRAINT `trabajadores_equipos_id_foreign` FOREIGN KEY (`equipos_id`) REFERENCES `equipos` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

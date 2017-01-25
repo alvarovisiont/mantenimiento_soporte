@@ -133,6 +133,16 @@
                 <li><a href="{{url('actualizaciones')}}"><i class="fa fa-circle-o"></i>Datos de Actualizaciones</a></li>
               </ul>
             </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-folder"></i> <span>Soporte</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{url('soportes/create')}}"><i class="fa fa-circle-o"></i>Agregar Soportes</a></li>
+                <li><a href="{{url('soportes')}}"><i class="fa fa-circle-o"></i>Administración de Soportes</a></li>
+              </ul>
+            </li>
              <li>
               <a href="#">
                 <i class="fa fa-plus-square"></i> <span>Ayuda</span>

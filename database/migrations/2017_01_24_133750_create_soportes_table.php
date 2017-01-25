@@ -18,8 +18,6 @@ class CreateSoportesTable extends Migration
             $table->integer('cedula');
             $table->integer('tareas_id')->unsigned();
             $table->integer('actualizaciones_id')->unsigned();
-            $table->foreign('tareas_id')->references('id')->on('tareas');
-            $table->foreign('actualizaciones_id')->references('id')->on('actualizaciones');
             $table->timestamps();
         });
     }
