@@ -37,6 +37,7 @@
 								<td></td>
 								<td>
 									<a href="" data-target="#modal-modificar-{{$row->id}}" data-toggle="modal"><button class="btn btn-info">Modificar</button></a>
+									<a href="" data-target="#modal-eliminar-{{$row->id}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 								</td>
 							</tr>
 							@include('soportes.modal')

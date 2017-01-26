@@ -82,13 +82,13 @@ class SoportesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SoporteRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $soporte = Soporte::findOrfail($id);
         $soporte->fill($request->all());
         //dd($user);
         $soporte->update();
-        return redirect('usuarios');
+        return redirect('soportes');
     }
 
     /**
@@ -99,6 +99,7 @@ class SoportesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $soporte = Soporte::findOrfail($id);
+        $sorpote->delete();
     }
 }
