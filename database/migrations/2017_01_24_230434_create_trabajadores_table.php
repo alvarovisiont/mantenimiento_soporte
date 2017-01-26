@@ -14,7 +14,6 @@ class CreateTrabajadoresTable extends Migration
     {
         Schema::create('trabajadores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tareas_id')->unsigned();
             $table->integer('equipos_id')->unsigned();
             $table->string('nombre_completo');
             $table->integer('cedula');

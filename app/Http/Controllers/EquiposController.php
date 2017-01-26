@@ -103,10 +103,16 @@ class EquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         //
         Equipos::destroy($id);
-        return redirect('equipos');
+
+        if($request->ajax())
+        {
+            return response()->json([
+                    "exito" => "Usuario eliminado con éxito"
+                ]);
+        }
     }
 }

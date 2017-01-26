@@ -19,25 +19,9 @@
     <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
 
     <!--<link rel="apple-touch-icon" href="{{ asset('img/apple-touch-icon.png') }}">-->
-     <!-- jQuery 2.1.4 -->
-    <script src="{{ asset('js/jQuery-2.1.4.min.js') }}"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- AdminLTE App --> 
-    <script src="{{ asset('js/app.min.js') }}"></script>
-  <!--Datatables -->
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <!--<script src="{{ asset('json/esp.json') }}"></script>-->
-
-
-  
- 
-
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-
       <header class="main-header">
 
         <!-- Logo -->
@@ -183,10 +167,8 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        
         <!-- Main content -->
         <section class="content">
-          
           <div class="row">
             <div class="col-md-12">
               <div class="box">
@@ -208,9 +190,6 @@
                   	</div><!-- /.row -->
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
       <!--Fin-Contenido-->
@@ -219,6 +198,19 @@
           <b>Version</b> 2.3.0
         </div>
         <strong>Copyright &copy;  <a href="www.google.co.ve">Google</a>.</strong> All rights reserved.
+        <!-- jQuery 2.1.4 -->
+        <script src="{{ asset('js/jQuery-2.1.4.min.js') }}"></script>
+        <!-- Bootstrap 3.3.5 -->
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <!-- AdminLTE App --> 
+        <script src="{{ asset('js/app.min.js') }}"></script>
+        <!--Datatables -->
+        <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
+        <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+        @yield('script')
       </footer>
   </body>
 </html>
+
+
+

@@ -16,8 +16,9 @@ Route::get('/', function () {
 });
 
 Route::resource('departamentos', 'DepartamentosController');
-Route:: resource('equipos', 'EquiposController');
-Route:: resource('soportes', 'SoportesController');
+Route::resource('equipos', 'EquiposController');
+Route::resource('soportes', 'SoportesController');
+Route::resource('trabajadores', 'TrabajadoresController');
 
 //Rutas usuarios
 Route::resource('usuarios', 'UsuariosController');

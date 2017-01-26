@@ -1,4 +1,5 @@
 @extends('layout.admin')
+
 @section('contenido')
 	<div class="row">
 		<div class="container-fluid">
@@ -36,26 +37,31 @@
 			</div>
 		</div>
 	</div>
+@endsection
+@section('script')
 	<script>
-		$(function(){
-			$("table").dataTable();
-			function pregunta()
-			{
-				var agree = confirm("Esta seguro de querer eliminar este registro?");
-				return agree;
-			}
-
-			$(".eliminar").click(function(event) {
-				var confirm = pregunta();
-				if(confirm)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			});
+	$(function(){
+		$("table").dataTable({
+			"language" : {"url" : "json/esp.json"},
 		});
+		
+		function pregunta()
+		{
+			var agree = confirm("Esta seguro de querer eliminar este registro?");
+			return agree;
+		}
+
+		$(".eliminar").click(function(event) {
+			var confirm = pregunta();
+			if(confirm)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		});
+	});
 	</script>
 @endsection

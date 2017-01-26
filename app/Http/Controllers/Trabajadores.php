@@ -6,11 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Trabajadores;
-
-use Illuminate\Support\Facades\DB;
-
-class TrabajadoresController extends Controller
+class Trabajadores extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +16,6 @@ class TrabajadoresController extends Controller
     public function index()
     {
         //
-        $datos = Trabajadores::all();
-        return view('trabajadores.index', ['datos' => $datos]);
     }
 
     /**
