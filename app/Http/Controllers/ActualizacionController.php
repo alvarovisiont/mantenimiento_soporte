@@ -5,16 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-
-use App\Http\Requests\EquiposRequest;
-
 use App\Equipos;
 use App\Soporte;
+use App\Actualizaciones;
 
-use Illuminate\Support\Facades\DB;
-
-
-class EquiposController extends Controller
+class ActualizacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,15 +18,10 @@ class EquiposController extends Controller
      */
     public function index()
     {
-        //
         $datos = Equipos::all();
         $soporte = Soporte::all();
-        return view('equipos.index', ['datos' => $datos , 'soporte' => $soporte]);
-
-
+        return view('equipos.actualizar', ['datos' => $datos , 'soporte' => $soporte]); 
     }
-
-   
 
     /**
      * Show the form for creating a new resource.
@@ -41,8 +31,6 @@ class EquiposController extends Controller
     public function create()
     {
         //
-        $equipo = new Equipos;
-        return view('equipos.crear', ['equipo' => $equipo]);
     }
 
     /**
@@ -51,14 +39,14 @@ class EquiposController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EquiposRequest $request)
+    public function store(Request $request)
     {
-        //
-        $equipo = new Equipos;
-        $equipo->fill($request->all());
-        $equipo->save();
-        return redirect('equipos');
-
+        $datos = new Actualizaciones();
+        $datos->equipos_id = $request->get('equipos_id');
+        $datos->soportes_id = $request->get('soportes_id');
+        $datos->descripcion = $request->get('descripcion');
+        $datos->save();
+         return redirect('actualizar');
     }
 
     /**
@@ -81,8 +69,6 @@ class EquiposController extends Controller
     public function edit($id)
     {
         //
-        $equipo = Equipos::find($id);
-        return view('equipos.edit', ['equipo' => $equipo]);
     }
 
     /**
@@ -95,10 +81,6 @@ class EquiposController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $equipo = Equipos::findOrFail($id);
-        $equipo->fill($request->all());
-        $equipo->save();
-        return redirect('equipos');
     }
 
     /**
@@ -110,7 +92,5 @@ class EquiposController extends Controller
     public function destroy($id)
     {
         //
-        Equipos::destroy($id);
-        return redirect('equipos');
     }
 }

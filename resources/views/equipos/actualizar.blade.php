@@ -5,7 +5,7 @@
 		<div class="containter">
 			<div class="col-md-12">
 				<div class="form-group">
-					<a href="{{url('equipos/create')}}" class="btn btn-primary btn-block btn-md">Agregar Equipo&nbsp;&nbsp;<i class="fa fa-desktop"></i></a>
+					<a href="" data-target="#modal-actualizar" data-toggle="modal"><button class="btn btn-danger btn-block btn-md">Actualizar <i class="fa fa-upload" aria-hidden="true"></i></button></a>
 				</div>
 				<table class="table table-bordered table-hover table-condensed">
 					<thead>
@@ -13,10 +13,7 @@
 						<th class="text-center">Nom_Equipo</th>
 						<th class="text-center">Usuario</th>
 						<th class="text-center">Ip</th>
-						<th class="text-center">Nº Fallas</th>
-						<th class="text-center">Nº Atenciones Pendientes</th>
-						<th class="text-center">Nº Actualizaciones</th>
-						<th class="text-center">Descripción</th>
+						<th class="text-center">Descripccion</th>
 						<th class="text-center">Acción</th>
 					</thead>
 					<tbody class="text-center">
@@ -34,14 +31,11 @@
 								<td>{{$row->ip}}</td>
 								<td></td>
 								<td></td>
-								<td></td>
+								
 								<td>
-
 								<a href="" data-target="#modal-modificar-{{$row->id}}" data-toggle="modal"><button class="btn btn-info">Ver <i class="fa fa-search" aria-hidden="true"></i></button></a>
-
-								 <a href="" data-target="#modal-actualizar-{{$row->id}}" data-toggle="modal"><button class="btn btn-danger">Actualizar <i class="fa fa-upload" aria-hidden="true"></i></button></a></td>
+							</td>
 								<td>
-
 								<a href="{{url('equipos/'.$row->id.'/edit')}}" class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>
 
 									@include('equipos.eliminar', ['id' => $row->id])
@@ -55,37 +49,4 @@
 			</div>
 		</div>
 	</div>
-
-<script>
-	$(function(){
-		/*$("#modal_descripcion").on('show.bs.modal', function(e){
-			var x = $(e.relatedTarget).data().descripcion;
-					$(e.currentTarget).find("#descripcion").html('');
-					$(e.currentTarget).find("#descripcion").html(x);
-		});
-		$("#modal_actualizar").on('show.bs.modal', function(f){
-			var x = $(f.relatedTarget).data().actualizar;
-					$(f.currentTarget).find("#actualizar").html('');
-					$(f.currentTarget).find("#actualizar").html(x);
-		});*/
-
-		function pregunta()
-		{
-			var agree = confirm("¿Esta seguro de querer borrar realmente este registro?");
-			return agree;
-		}
-
-		$(".eliminar").click(function(){
-			var confirm = pregunta();
-			if(confirm)
-			{
-				return confirm;
-			}
-			else
-			{
-				return confirm;	
-			}
-		});
-	});
-</script>
-@endsection
+	@endsection
