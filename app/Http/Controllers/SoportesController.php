@@ -100,6 +100,7 @@ class SoportesController extends Controller
     public function destroy($id)
     {
         $soporte = Soporte::findOrfail($id);
-        $sorpote->delete();
+        $soporte->delete();
+        return redirect('soportes');
     }
 }
