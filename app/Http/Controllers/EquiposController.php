@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Requests\EquiposRequest;
 
 use App\Equipos;
+use App\Soporte;
 
 use Illuminate\Support\Facades\DB;
 
@@ -24,10 +25,13 @@ class EquiposController extends Controller
     {
         //
         $datos = Equipos::all();
-        return view('equipos.index', ['datos' => $datos]);
+        $soporte = Soporte::all();
+        return view('equipos.index', ['datos' => $datos , 'soporte' => $soporte]);
 
 
     }
+
+   
 
     /**
      * Show the form for creating a new resource.

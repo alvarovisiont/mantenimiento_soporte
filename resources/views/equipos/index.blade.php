@@ -22,22 +22,41 @@
 								$detalles = "<button class='btn btn-info btn-sm' data-toggle='modal' data-target='#modal_descripcion'
 									data-descripcion='$row->descripcion'>Ver&nbsp;<i class='fa fa-search'></i></button>";
 								$modificar = "<a href='".'{{url(equipos/'.$row->id.'/edit)}}'."' class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>";
+							
 							?>
+<<<<<<< HEAD
 							<tr data-id="{{$row->id}}">
 								<td>{{$row->bm}}</td>
+=======
+							<tr>
+								<td>{{ strtoupper($row->bm)}}</td>
+>>>>>>> 8142a9b7959e56c1c5868c1aceda533057dc844f
 								<td>{{$row->nom_equipo}}</td>
 								<td>{{$row->usuario}}</td>
 								<td>{{$row->ip}}</td>
 								<td></td>
 								<td></td>
 								<td></td>
-								<td><?php echo $detalles; ?></td>
 								<td>
+<<<<<<< HEAD
 									<a href="{{url('equipos/'.$row->id.'/edit')}}" class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>
 									<button class="btn btn-danger btn-sm eliminar" title="eliminar" data-eliminar='{{$row->id}}'><i class="fa fa-trash"></i></button>
+=======
+
+								<a href="" data-target="#modal-modificar-{{$row->id}}" data-toggle="modal"><button class="btn btn-info">Ver <i class="fa fa-search" aria-hidden="true"></i></button></a>
+
+								 <a href="" data-target="#modal-actualizar-{{$row->id}}" data-toggle="modal"><button class="btn btn-danger">Actualizar <i class="fa fa-upload" aria-hidden="true"></i></button></a></td>
+								<td>
+
+								<a href="{{url('equipos/'.$row->id.'/edit')}}" class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>
+
+									@include('equipos.eliminar', ['id' => $row->id])
+>>>>>>> 8142a9b7959e56c1c5868c1aceda533057dc844f
 								</td>
 							</tr>
+							    @include('equipos.modal')
 						@endforeach
+
 					</tbody>
 				</table>
 		<div class="modal fade" id="modal_descripcion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -58,6 +77,7 @@
 				</div>
 			</div>
 		</div>
+<<<<<<< HEAD
 
 		{!! Form::open(['url' => 'equipos/'.':USER', 'class' => 'formulario_eliminar', 'style' => 'display: inline-block', 'method' => 'DELETE']) !!}
 		{!! Form::close() !!}
@@ -72,10 +92,22 @@
 		});
 		
 		$("#modal_descripcion").on('show.bs.modal', function(e){
+=======
+	</div>
+
+<script>
+	$(function(){
+		/*$("#modal_descripcion").on('show.bs.modal', function(e){
+>>>>>>> 8142a9b7959e56c1c5868c1aceda533057dc844f
 			var x = $(e.relatedTarget).data().descripcion;
 					$(e.currentTarget).find("#descripcion").html('');
 					$(e.currentTarget).find("#descripcion").html(x);
 		});
+		$("#modal_actualizar").on('show.bs.modal', function(f){
+			var x = $(f.relatedTarget).data().actualizar;
+					$(f.currentTarget).find("#actualizar").html('');
+					$(f.currentTarget).find("#actualizar").html(x);
+		});*/
 
 		function pregunta()
 		{

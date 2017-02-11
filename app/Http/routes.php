@@ -27,6 +27,10 @@ Route::patch('usuarios/{id}/edit',[
     'uses' => 'UsuariosController@update'
 ]);
 
+Route::resource('actualizar', 'ActualizacionController');
+
+
+
 Route::auth();
 
 Route::get('layout',function() {

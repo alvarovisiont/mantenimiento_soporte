@@ -14,11 +14,31 @@
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables/jquery.dataTables.css') }}"></link>
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/select2.css') }} ">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
 
     <!--<link rel="apple-touch-icon" href="{{ asset('img/apple-touch-icon.png') }}">-->
+<<<<<<< HEAD
+=======
+     <!-- jQuery 2.1.4 -->
+    <script src="{{ asset('js/jQuery-2.1.4.min.js') }}"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- AdminLTE App --> 
+    <script src="{{ asset('js/app.min.js') }}"></script>
+  <!--Datatables -->
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/select2.js') }}"></script>
+    <!--<script src="{{ asset('json/esp.json') }}"></script>-->
+
+
+  
+ 
+
+>>>>>>> 8142a9b7959e56c1c5868c1aceda533057dc844f
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -114,7 +134,7 @@
               <ul class="treeview-menu">
                 <li><a href="{{url('equipos')}}"><i class="fa fa-circle-o"></i>Administración de equipos</a></li>
                 <li><a href="{{url('fallas')}}"><i class="fa fa-circle-o"></i>Fallas de equipos</a></li>
-                <li><a href="{{url('actualizaciones')}}"><i class="fa fa-circle-o"></i>Datos de Actualizaciones</a></li>
+                <li><a href="{{url('actualizar')}}"><i class="fa fa-circle-o"></i>Datos de Actualizaciones</a></li>
               </ul>
             </li>
 

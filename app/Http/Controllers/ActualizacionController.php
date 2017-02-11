@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Equipos;
+use App\Soporte;
+use App\Actualizaciones;
 
-class Trabajadores extends Controller
+class ActualizacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +18,9 @@ class Trabajadores extends Controller
      */
     public function index()
     {
-        //
+        $datos = Equipos::all();
+        $soporte = Soporte::all();
+        return view('equipos.actualizar', ['datos' => $datos , 'soporte' => $soporte]); 
     }
 
     /**
@@ -36,7 +41,12 @@ class Trabajadores extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datos = new Actualizaciones();
+        $datos->equipos_id = $request->get('equipos_id');
+        $datos->soportes_id = $request->get('soportes_id');
+        $datos->descripcion = $request->get('descripcion');
+        $datos->save();
+         return redirect('actualizar');
     }
 
     /**

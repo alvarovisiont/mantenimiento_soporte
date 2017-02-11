@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Trabajadores;
 
+use App\Departamentos;
+
 use Illuminate\Support\Facades\DB;
 
 class TrabajadoresController extends Controller
@@ -32,6 +34,10 @@ class TrabajadoresController extends Controller
     public function create()
     {
         //
+        $departamentos = DB::table('departamentos')->select('id', 'nombre')->get();
+        $equipos = DB::table('equipos')->select('id', 'nom_equipo', 'bm')->get();
+        $trabajador = new Trabajadores;
+        //return view('trabajadores.create', ['trabajador' => $trabajador, 'departamentos' => $departamentos, 'equipos' => $equipos]);
     }
 
     /**
