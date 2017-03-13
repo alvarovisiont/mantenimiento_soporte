@@ -7,48 +7,20 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Registrar</div>
                 <div class="panel-body">
-                    {!! Form::open(['url' => 'usuarios', 'method' => 'POST' , 'class' => 'form-horizontal']) !!}
-                        {{ csrf_field() }}
+                    {!! Form::open(['url' => 'usuarios', 'method' => 'POST' , 'class' => 'form-horizontal', 'id' => 'form_agregar']) !!}
+                        <div class="form-group">
+                            <label for="usuario" class="col-md-4 control-label">Trabajador</label>
 
-                        <div class="form-group{{ $errors->has('cedula') ? ' has-error' : '' }}">
-                            <label for="cedula" class="col-md-4 control-label">Cedula</label>
-
-                            <div class="col-md-6">
-                                <input id="cedula" type="text" class="form-control" name="cedula" value="{{ old('cedula') }}">
-
-                                @if ($errors->has('cedula'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('cedula') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="col-md-6">  
+                                {!! Form::select('trabajadores_id',['' => 'Seleccione un trabajador'] + $trabajadores, null,['class' => 'form-control', 'id' => 'trabajadores_combo']) !!}
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Nombre</label>
+                        <div class="form-group">
+                            <label for="usuario" class="col-md-4 control-label">Soporte</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('apellido') ? ' has-error' : '' }}">
-                            <label for="apellido" class="col-md-4 control-label">Apellido</label>
-
-                            <div class="col-md-6">
-                                <input id="apellido" type="text" class="form-control" name="apellido" value="{{ old('name') }}">
-
-                                @if ($errors->has('apellido'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('apellido') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="col-md-6">  
+                                {!! Form::select('soportes_id',['' => 'Seleccione un soporte'] +$soportes, null,['class' => 'form-control', 'id' => 'soportes_combo']) !!}
                             </div>
                         </div>
 
@@ -101,8 +73,8 @@
                                 <select name="nivel" id="nivel" class="form-control">
                                     <option>Seleccione..</option>
                                     <option value="1">Administrador</option>
-                                    <option value="2">Trabajador</option>
-                                    <option value="3">Operador</option>
+                                    <option value="2">Soporte</option>
+                                    <option value="3">Trabajador</option>
                                 </select>
 
                                 @if ($errors->has('nivel'))
@@ -120,12 +92,51 @@
                                 </button>
                             </div>
                         </div>
+                        <br>
+                        <div class="form-group">
+                            <p class="alert alert-danger text-center" id="aviso" style="display: none">Debe seleccionar un trabajador o un soporte&nbsp;<i class="fa fa-exclamation-circle"></i></p>
+                        </div>
                     {!! form:: close() !!}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 @endsection
+
+@section('script')
+    <script>
+        $(function()
+        {
+            $("#tabla").dataTable({
+
+                "language" : {"url" : "json/esp.json"}
+            });
+
+            $("#trabajadores_combo").change(function(event) {
+                $("#soportes_combo").val('').prop('selected');
+            });
+
+            $("#soportes_combo").change(function(event) {
+                $("#trabajadores_combo").val('').prop('selected');
+            });
+
+            $("#form_agregar").submit(function(event) {
+                var trabajadores = $("#trabajadores_combo").val(),
+                    soportes = $("#soportes_combo").val();
+
+                    if(trabajadores == "" && soportes == "")
+                    {
+                        $("#aviso").show('slow/400/fast',function(){
+                            setTimeout(function(){
+                                $("#aviso").hide('slow');
+                            },2500);
+                        });
+
+                        return false;
+                    }
+            });
+        });
+        
+    </script>
+@endsection 

@@ -24,11 +24,7 @@ class RegisterRequest extends Request
     public function rules()
     {
         return [
-            'cedula' => 'required|max:8|min:7|unique:users',
-            'name' => 'required|max:70',
-            'apellido' => 'required|max:80',
             'usuario' => 'required|max:18|unique:users',
-            'nivel' => 'required',
             'password' => 'required|min:6|confirmed',
         ];
     }

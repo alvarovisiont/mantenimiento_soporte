@@ -13,14 +13,10 @@ class Usuarios extends Model
     public $timestamp=false;
 
     protected $fillable = [
-    'id_tarea',
-    'nombre',
-    'apellido',
     'usuario',
-    'pass',
-    'nivel',
-    'acivo',
-    'fecha_reg'];
+    'password',
+    'nivel'];
 
     protected $guarded = [];
 }
+

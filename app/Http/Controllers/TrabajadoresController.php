@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
-use App\Http\Requests;
+use App\Http\Requests\TrabajadoresRequest;
 
 use App\Trabajadores;
-
 use App\Departamentos;
+use App\Equipos;
 
-use Illuminate\Support\Facades\DB;
+use Session;
 
 class TrabajadoresController extends Controller
 {
+    public function __Construct()
+    {
+        $this->middleware('validate.user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +28,10 @@ class TrabajadoresController extends Controller
     public function index()
     {
         //
-        $datos = Trabajadores::all();
+        $datos = Trabajadores::join('departamentos', 'departamentos.id', '=', 'trabajadores.departamento_id')
+                            ->join('equipos', 'equipos.id', '=', 'trabajadores.equipos_id')
+                            ->select('trabajadores.*', 'equipos.bm', 'departamentos.nombre')
+                            ->get();
         return view('trabajadores.index', ['datos' => $datos]);
     }
 
@@ -33,11 +42,10 @@ class TrabajadoresController extends Controller
      */
     public function create()
     {
-        //
-        $departamentos = DB::table('departamentos')->select('id', 'nombre')->get();
-        $equipos = DB::table('equipos')->select('id', 'nom_equipo', 'bm')->get();
+        $departamentos = Departamentos::lists('nombre', 'id');
+        $equipos = Equipos::lists('bm', 'id');
         $trabajador = new Trabajadores;
-        //return view('trabajadores.create', ['trabajador' => $trabajador, 'departamentos' => $departamentos, 'equipos' => $equipos]);
+        return view('trabajadores.create', ['trabajador' => $trabajador, 'departamentos' => $departamentos, 'equipos' => $equipos]);
     }
 
     /**
@@ -46,9 +54,20 @@ class TrabajadoresController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TrabajadoresRequest $request)
     {
         //
+        $trabajador = new Trabajadores;
+        $trabajador->create($request->all());
+
+        $equipos = Equipos::where('id', '=', $request->equipos_id)->firstOrFail();
+        $equipos->status = 1;
+        $equipos->save();
+
+        Session::flash('flash_create', 'Trabajador creado con éxito');
+
+        return Redirect::to('trabajadores');
+
     }
 
     /**
@@ -71,6 +90,10 @@ class TrabajadoresController extends Controller
     public function edit($id)
     {
         //
+        $trabajador = Trabajadores::find($id);
+        $departamentos = Departamentos::lists('nombre', 'id');
+        $equipos = Equipos::lists('bm', 'id');
+        return view('trabajadores.edit', ['trabajador' => $trabajador, 'departamentos' => $departamentos, 'equipos' => $equipos]);
     }
 
     /**
@@ -83,6 +106,11 @@ class TrabajadoresController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $trabajador = Trabajadores::findOrFail($id);
+        $trabajador->fill($request->all());
+        $trabajador->save();
+        Session::flash('flash_create', 'Trabajador modificado con éxito');
+        return redirect('trabajadores');
     }
 
     /**
@@ -91,8 +119,22 @@ class TrabajadoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         //
+        $trabajadores = Trabajadores::where('id', '=', $id)->firstOrFail();
+        
+        $equipos = Equipos::where('id', '=', $trabajadores->equipos_id)->firstOrFail();
+        $equipos->status = 0;
+        $equipos->save();
+
+        Trabajadores::destroy($id);
+
+        if($request->ajax())
+        {
+            return response()->json([
+                    "exito" => "Usuario eliminado con éxito"
+                ]);
+        }
     }
 }

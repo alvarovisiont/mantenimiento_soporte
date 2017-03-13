@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 use App\Departamentos;
 
-use Illuminate\Support\Facades\DB;
+use Session;
 
-use Illuminate\Support\Facades\Redirect;
 
 class DepartamentosController extends Controller
 {
+
+    public function __Construct()
+    {
+        $this->middleware('validate.user');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +27,7 @@ class DepartamentosController extends Controller
     public function index()
     {
         //
-        $datos = DB::table('departamentos')->get();
+        $datos = Departamentos::all();
         return view('departamentos.index', ['datos' => $datos]);
     }
 
@@ -49,6 +56,7 @@ class DepartamentosController extends Controller
         $departamento->nombre = $request->nombre;
         $departamento->descripcion = $request->descripcion;
         $departamento->save();
+        Session::flash('flash_create', 'Departamento creado con éxito');
         return Redirect::to('departamentos');
     }
 
@@ -89,6 +97,7 @@ class DepartamentosController extends Controller
         $user = Departamentos::findOrFail($id);
         $user->fill($request->all());
         $user->save();
+        Session::flash('flash_create', 'Departamento modificado con éxito');
         return Redirect::to('departamentos');
     }
 
@@ -98,10 +107,30 @@ class DepartamentosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         //
-        Departamentos::destroy($id);
-        return redirect('departamentos');
+        if($request->ajax())
+        {
+            try
+            {
+                Departamentos::destroy($id);
+                return response()->json([
+                    "exito" => "Departamento eliminado con éxito"
+                ]);
+                
+                
+            }
+            catch(\Illuminate\Database\QueryException $e)
+            {   
+                return response()->json([
+                    "false" => $e->getMessage()
+                ]);
+            }
+            
+            
+                
+            
+        }
     }
 }

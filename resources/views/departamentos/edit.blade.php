@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="container">
 			<div class="col-md-12">
-				<h1>Editar Departamento: <span style="text-decoration: underline; color: red">{{$departamentos->nombre}}</span></h1>
+				<h2>Editar Departamento: <span>{{$departamentos->nombre}}</span></h2>
 				@include('departamentos.partials.form', ['departamentos' => $departamentos,'url' => 'departamentos/'.$departamentos->id, 'method' => "PATCH"])		
 			</div>
 		</div>

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTareasTable extends Migration
+class CreateWorksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,16 @@ class CreateTareasTable extends Migration
      */
     public function up()
     {
-        Schema::create('tareas', function (Blueprint $table) {
+        Schema::create('works', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('trabajadores_id')->unsigned();
+            $table->integer('falla_id')->unsigned();
+            $table->integer('trabajadores_id');
             $table->integer('soporte_id')->unsigned();
-            $table->integer('equipo_id')->unsigned();
+            $table->integer('equipo_id');
             $table->string('descripcion');
             $table->string('fecha_tarea');
-            $table->string('tipo');
-            $table->foreign('equipo_id')->references('id')->on('equipos');
-            $table->foreign('trabajadores_id')->references('id')->on('trabajadores');
+            $table->integer('status');
+            $table->foreign('falla_id')->references('id')->on('fallas');
             $table->foreign('soporte_id')->references('id')->on('soportes');
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ class CreateTareasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tareas');
+        Schema::drop('works');
     }
 }

@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+
 use App\Http\Requests;
 use App\Http\Requests\SoporteRequest;
-use Illuminate\Support\Facades\Redirect;
+
 use App\Soporte;
+use Session;
 
 
-use Illuminate\Support\Facades\DB;
 
 class SoportesController extends Controller
 {
+
+    public function __Construct()
+    {
+        $this->middleware('validate.user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +29,8 @@ class SoportesController extends Controller
     public function index()
     {
         //
-        $datos = DB::table('soportes')->get();
+        $datos = Soporte::select('*', DB::raw('(SELECT count(*) from actualizaciones where soportes_id = soportes.id) as actualizaciones'), DB::raw('(SELECT COUNT(*) as tareas from works where works.soporte_id = soportes.id) as tareas'))
+            ->get();
         return view('soportes.index', ['datos' => $datos]);
 
     }
@@ -49,7 +57,7 @@ class SoportesController extends Controller
         $soporte = new Soporte();
         $soporte->fill($request->all());
         $soporte->save();
-        Session::flash('flash_message', 'Se ha registrado de manera exitosa!');
+        Session::flash('flash_create', 'Se ha registrado de manera exitosa');
         return Redirect::to('soportes');
     }
 
@@ -88,6 +96,7 @@ class SoportesController extends Controller
         $soporte->fill($request->all());
         //dd($user);
         $soporte->update();
+        Session::flash('flash_create', 'Se ha modificado de manera exitosa');
         return redirect('soportes');
     }
 
@@ -97,10 +106,25 @@ class SoportesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        $soporte = Soporte::findOrfail($id);
-        $soporte->delete();
-        return redirect('soportes');
+        if($request->ajax())
+        {
+            try
+            {
+                Soporte::destroy($id);
+                return response()->json([
+                    "exito" => "Soporte eliminado con éxito"
+                ]);
+                
+                
+            }
+            catch(\Illuminate\Database\QueryException $e)
+            {   
+                return response()->json([
+                    "false" => $e->getMessage()
+                ]);
+            }    
+        }
     }
 }

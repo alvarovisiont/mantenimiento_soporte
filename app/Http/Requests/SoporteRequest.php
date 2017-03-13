@@ -24,7 +24,7 @@ class SoporteRequest extends Request
     public function rules()
     {
         return [
-            'cedula' => 'required|min:7|max:8|unique:soportes',
+            'cedula' => 'min:7|max:8|unique:soportes',
             'nombre_completo' => 'required',
         ];
     }

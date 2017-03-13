@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tareas extends Model
+class Characteristic_computer extends Model
 {
     //
 }

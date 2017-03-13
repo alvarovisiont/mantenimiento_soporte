@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Auth;
 use DB;
 
 class AuthController extends Controller
@@ -29,7 +30,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'layout';
+    protected $redirectTo = 'escritorioBienvenida';
 
 //Para que inicie sesion con usuario en vez de email
         protected $username = "usuario";
@@ -42,6 +43,7 @@ class AuthController extends Controller
     public function __construct()
     {
         //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        //$this->middleware('auth');
     }
 
     /**
@@ -50,12 +52,20 @@ class AuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    
+    // Función que susplanta la función por default de authUsers para desplegar errores en los datos de acceso (Credenciales)
+
+    protected function sendFailedLoginResponse()
+    {
+
+        return view('auth.login')->with('failedLogin', 'Error en sus credenciales. Intentelo de nuevo por favor');
+    }
+
+
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'cedula' => 'required|max:8|min:7|unique:users',
-            'name' => 'required|max:70',
-            'apellido' => 'required|max:80',
             'usuario' => 'required|max:18|unique:users',
             'nivel' => 'required',
             'password' => 'required|min:6|confirmed',
@@ -70,10 +80,14 @@ class AuthController extends Controller
      */
 
 
-    public function create(array $data)
+    public function logout()
     {
-        //para redireccionar despues de registrar
-       return "hola";
+         $user = User::where('id_user', '=', Auth::user()->id_user)->firstOrFail();
+         $user->online = 0;
+         $user->save();
+         Auth::logout();
+
+         return view('auth.login');
     }
 
 

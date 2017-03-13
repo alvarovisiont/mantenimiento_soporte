@@ -1,75 +1,109 @@
 @extends('layout.admin')
 
 @section('contenido')
-				<div class="form-group">
-					<a href="{{url('equipos/create')}}" class="btn btn-primary btn-block btn-md">Agregar Equipo&nbsp;&nbsp;<i class="fa fa-desktop"></i></a>
+		
+		<?php
+			$x = 0;
+		?>
+		@if(Session::has('flash_create'))
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 ">
+					<div class="alert alert-success">
+					 <h5 class="text-center">{{Session::get('flash_create')}}&nbsp;<i class="fa fa-exclamation-circle"></i></h5>
+				    </div>
 				</div>
-				<table class="table table-bordered table-hover table-condensed" id="tabla">
-					<thead>
-						<th class="text-center">Bien Mueble</th>
-						<th class="text-center">Nom_Equipo</th>
-						<th class="text-center">Usuario</th>
-						<th class="text-center">Ip</th>
-						<th class="text-center">Nº Fallas</th>
-						<th class="text-center">Nº Atenciones Pendientes</th>
-						<th class="text-center">Nº Actualizaciones</th>
-						<th class="text-center">Descripción</th>
-						<th class="text-center">Acción</th>
-					</thead>
-					<tbody class="text-center">
-						@foreach($datos as $row)
-							<?php
-								$detalles = "<button class='btn btn-info btn-sm' data-toggle='modal' data-target='#modal_descripcion'
-									data-descripcion='$row->descripcion'>Ver&nbsp;<i class='fa fa-search'></i></button>";
-								$modificar = "<a href='".'{{url(equipos/'.$row->id.'/edit)}}'."' class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>";
-							
-							?>
-<<<<<<< HEAD
-							<tr data-id="{{$row->id}}">
-								<td>{{$row->bm}}</td>
-=======
-							<tr>
-								<td>{{ strtoupper($row->bm)}}</td>
->>>>>>> 8142a9b7959e56c1c5868c1aceda533057dc844f
-								<td>{{$row->nom_equipo}}</td>
-								<td>{{$row->usuario}}</td>
-								<td>{{$row->ip}}</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>
-<<<<<<< HEAD
-									<a href="{{url('equipos/'.$row->id.'/edit')}}" class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>
-									<button class="btn btn-danger btn-sm eliminar" title="eliminar" data-eliminar='{{$row->id}}'><i class="fa fa-trash"></i></button>
-=======
+			</div>
+			 <?php 
+			 	$x = 1;
+			 ?>
+		@endif
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center">
+				<div class="alert alert-success" id="aviso" style="display: none;">
+				 <h5 class="">Equipo eliminado con éxito&nbsp;<i class="fa fa-exclamation-circle"></i></h5>
+			    </div>
+			</div>
+		</div>
+		<div class="form-group">
+			<a href="{{url('equipos/create')}}" class="btn btn-primary btn-block btn-md">Agregar Equipo&nbsp;&nbsp;<i class="fa fa-desktop"></i></a>
+		</div>
+		<div class="col-md-4 col-md-offset-4" id="barra_oculta" style="display:none">
+			<div class="progress progress-striped active">
+				  	<div class="progress-bar progress-bar-danger" role="progressbar"
+				       aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+				       style="width: 100%">
+				       <span>Eliminando...</span>
+				    	<span class="sr-only">45% completado</span>
+				  </div>
+			</div>
+		</div>
+		<table class="table table-bordered table-hover table-condensed" id="tabla">
+			<thead>
+				<th class="text-center">Bien Mueble</th>
+				<th class="text-center">Nom_Equipo</th>
+				<th class="text-center">Usuario</th>
+				<th class="text-center">Ip</th>
+				<th class="text-center">Nº Atenciones Pendientes</th>
+				<th class="text-center">Status</th>
+				<th class="text-center">Descripción</th>
+				<th class="text-center">Acción</th>
+			</thead>
+			<tbody class="text-center">
+				@foreach($datos as $row)
+					<?php
+						$modificar = "<a href='".'{{url(equipos/'.$row->id.'/edit)}}'."' class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>";
 
-								<a href="" data-target="#modal-modificar-{{$row->id}}" data-toggle="modal"><button class="btn btn-info">Ver <i class="fa fa-search" aria-hidden="true"></i></button></a>
+						if($row->status == 0)
+						{
+							$status = "<span class='label label-success label-td'>Disponible</span>";
+						}
+						elseif($row->status == 1)
+						{
+							$status = "<span class='label label-primary label-td'>En uso</span>";	
+						}
+						elseif($row->status == 2)
+						{
+							$status = "<span class='label label-warning label-td'>En reparación</span>";	
+						}
+						else
+						{
+							$status = "<span class='label label-danger label-td'>Extraviada</span>";	
+						}
+					?>
+					<tr data-id="{{$row->id}}">
+						<td>{{ strtoupper($row->bm)}}</td>
+						<td>{{$row->nom_equipo}}</td>
+						<td>{{$row->nombre_completo}}</td>
+						<td>{{$row->ip}}</td>
+						<td>{{$row->pendientes}}</td>
+						<td>@php echo $status; @endphp</td>
+						<td>
+							<a href="#modal_descripcion" class="btn btn-info" data-toggle="modal" data-descripcion = "{{$row->tipo}}">Ver&nbsp;<i class="fa fa-search"></i></a>
+						</td>
+						<td>
+							<a href="{{url('equipos/'.$row->id.'/edit')}}" class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>
+							<button class="btn btn-danger btn-sm eliminar" title="eliminar" data-eliminar='{{$row->id}}'><i class="fa fa-trash"></i></button>
+						</td>
+					</tr>
+				@endforeach
 
-								 <a href="" data-target="#modal-actualizar-{{$row->id}}" data-toggle="modal"><button class="btn btn-danger">Actualizar <i class="fa fa-upload" aria-hidden="true"></i></button></a></td>
-								<td>
-
-								<a href="{{url('equipos/'.$row->id.'/edit')}}" class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>
-
-									@include('equipos.eliminar', ['id' => $row->id])
->>>>>>> 8142a9b7959e56c1c5868c1aceda533057dc844f
-								</td>
-							</tr>
-							    @include('equipos.modal')
-						@endforeach
-
-					</tbody>
-				</table>
+			</tbody>
+		</table>
 		<div class="modal fade" id="modal_descripcion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			  	<div class="modal-dialog" role="document">
 			    	<div class="modal-content">
-				      <div class="modal-header modal-header2" style="background-color: #FFF">
+				      <div class="modal-header" style="background-color: #2280E8; color: white;">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
 				        <h3 class="text-center">Descripción del Equipo&nbsp;<i class="fa fa-desktop"></i></h3>
 				      </div>
 				      <div class="modal-body">
-				      	<p id="descripcion" style="font-weight: bold; text-align: justify; text-indent: 10px; font-size:16px;"></p>
+				      	<div class="row">
+				      		<div class="col-md-12">
+				      			<p id="descripcion" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
+				      		</div>
+				      	</div>
 				      <div class="modal-footer">
 				      	<button class="btn btn-danger" data-dismiss='modal'>Cerrar&nbsp;<i class="fa fa-remove"></i></button>
 				      </div>
@@ -77,7 +111,6 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
 
 		{!! Form::open(['url' => 'equipos/'.':USER', 'class' => 'formulario_eliminar', 'style' => 'display: inline-block', 'method' => 'DELETE']) !!}
 		{!! Form::close() !!}
@@ -90,24 +123,21 @@
 		$("table").dataTable({
 			"language": {"url" : "json/esp.json"}
 		});
+
+		var validacion = <?php echo $x; ?>; 
+		if(validacion == 1)
+		{
+			setTimeout(function(){
+				$(".alert-success").hide('slow/400/fast');
+			}, 2500);
+			
+		}
 		
 		$("#modal_descripcion").on('show.bs.modal', function(e){
-=======
-	</div>
-
-<script>
-	$(function(){
-		/*$("#modal_descripcion").on('show.bs.modal', function(e){
->>>>>>> 8142a9b7959e56c1c5868c1aceda533057dc844f
 			var x = $(e.relatedTarget).data().descripcion;
 					$(e.currentTarget).find("#descripcion").html('');
 					$(e.currentTarget).find("#descripcion").html(x);
 		});
-		$("#modal_actualizar").on('show.bs.modal', function(f){
-			var x = $(f.relatedTarget).data().actualizar;
-					$(f.currentTarget).find("#actualizar").html('');
-					$(f.currentTarget).find("#actualizar").html(x);
-		});*/
 
 		function pregunta()
 		{
@@ -117,20 +147,44 @@
 
 		$(".eliminar").click(function(e){
 
-			confirm = pregunta();
+			var confirm = pregunta();
 			
 			if(confirm)
 			{
-				var tr = $(this).parents('tr');
+				$("#barra_oculta").show('slow/400/fast');
+				var tr = $(this).parent().parent();
 				var form = $(".formulario_eliminar");
 				var id = $(this).data('eliminar');
 				var ruta = form.attr('action').replace(':USER', id);
 				var data = form.serialize();
 
-				$.post(ruta, data, function(data){
-					if(typeof(data.exito))
+				$.ajax({
+					url: ruta,
+					type:'POST',
+					dataType: 'JSON',
+					data: data,
+				})
+				.done(function(data){
+					if(typeof(data.exito) != "undefined")
 					{
-						tr.hide('slow/400/fast');
+						$("#barra_oculta").hide('slow/400/fast');
+						tr.remove();
+						$("#aviso").removeClass('alert-danger').addClass('alert-success').empty().html('Equipo eliminado con éxito&nbsp;<i class="fa fa-exclamation-circle"></i>').show('slow/400/fast');
+						setTimeout(function(){
+							$("#aviso").hide('slow/400/fast');
+						},2500);	
+					}
+					else
+					{
+						$("#barra_oculta").hide('slow/400/fast');
+						var titulo = $("#aviso").children('h5');
+						titulo.text('').append('No se puede borrar este registro porque esta asociado con algún trabajador u otro registro en el sistema&nbsp;&nbsp;<i class="fa fa-exclamation-circle"></i>');
+
+						$("#aviso").removeClass('alert-success').addClass('alert-danger').show('slow/400/fast');
+						
+						setTimeout(function(){
+							$("#aviso").hide('slow/400/fast');
+						},3500);		
 					}
 				});
 			}

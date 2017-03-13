@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Equipos;
 use App\Soporte;
 use App\Actualizaciones;
+use Illuminate\Support\Facades\DB;
+use Session;
 
 class ActualizacionController extends Controller
 {
+
+    public function __Construct()
+    {
+        $this->middleware('validate.user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +23,12 @@ class ActualizacionController extends Controller
      */
     public function index()
     {
-        $datos = Equipos::all();
-        $soporte = Soporte::all();
-        return view('equipos.actualizar', ['datos' => $datos , 'soporte' => $soporte]); 
+        $datos = DB::table('actualizaciones')
+                ->join('soportes', 'soportes.id', '=', 'actualizaciones.soportes_id')
+                ->join('equipos', 'equipos.id', '=', 'actualizaciones.equipos_id')
+                ->select('actualizaciones.descripcion', 'actualizaciones.created_at', 'actualizaciones.id', 'equipos.bm', 'soportes.nombre_completo')
+                ->get();
+        return view('actualizacion.index', ['datos' => $datos]); 
     }
 
     /**
@@ -31,6 +39,11 @@ class ActualizacionController extends Controller
     public function create()
     {
         //
+        $equipos = Equipos::lists('bm', 'id');
+        $soportes = Soporte::lists('nombre_completo', 'id');
+        $actualizacion = new Actualizaciones;
+        return view('actualizacion.create', ['equipos' => $equipos, 'soportes' => $soportes, 'actualizacion' => $actualizacion]);
+
     }
 
     /**
@@ -42,11 +55,10 @@ class ActualizacionController extends Controller
     public function store(Request $request)
     {
         $datos = new Actualizaciones();
-        $datos->equipos_id = $request->get('equipos_id');
-        $datos->soportes_id = $request->get('soportes_id');
-        $datos->descripcion = $request->get('descripcion');
-        $datos->save();
-         return redirect('actualizar');
+        $datos->create($request->all());
+        
+        Session::flash('flash_create', 'Actualización registrada con éxito');
+        return redirect('actualizar');
     }
 
     /**
@@ -69,6 +81,11 @@ class ActualizacionController extends Controller
     public function edit($id)
     {
         //
+        $equipos = Equipos::lists('bm', 'id');
+        $soportes = Soporte::lists('nombre_completo', 'id');
+        $actualizacion = Actualizaciones::find($id);
+        return view('actualizacion.edit', ['equipos' => $equipos, 'soportes' => $soportes, 'actualizacion' => $actualizacion]);
+
     }
 
     /**
@@ -81,6 +98,11 @@ class ActualizacionController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $datos = Actualizaciones::findOrFail($id);
+        $datos->fill($request->all());
+        $datos->save();
+        Session::flash('flash_create', 'Registro Modificado con éxito');
+        return redirect('actualizar');
     }
 
     /**
@@ -92,5 +114,6 @@ class ActualizacionController extends Controller
     public function destroy($id)
     {
         //
+        Actualizaciones::destroy($id);
     }
 }

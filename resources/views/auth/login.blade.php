@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Informatica</title>
+    <title>Informática</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -15,21 +15,51 @@
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
     <link rel="apple-touch-icon" href="{{asset('img/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
-
   </head>
 
 
-<body class="hold-transition login-page">
+<body class="hold-transition">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                     <span class="sr-only">Toggle Navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Alcaldía Soportes</a>
+             </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Recuperar Contraseña</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
 <div class="container">
     <div class="row">
     <div class="login-logo">
-
-        <a href="#"><b>INGRESO AL SISTEMA</b></a>
       </div><!-- /.login-logo -->
-        <div class="col-md-8 col-md-offset-2">
+        <?php
+            $x = 0;
+        ?>
+        @if(isset($failedLogin))
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="alert alert-danger">
+                     <h5 class="text-center">@php echo $failedLogin; @endphp &nbsp;<i class="fa fa-exclamation-circle"></i></h5>
+                    </div>
+                </div>
+            </div>
+             <?php 
+                $x = 1;
+             ?>
+        @endif
+        <div class="col-md-8 col-md-offset-2"> 
             <div class="panel panel-default">
-            
                 <div class="panel-heading"><strong>Login</strong></div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
@@ -89,4 +119,20 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('js/jQuery-2.1.4.min.js') }}"></script>
+        <!-- Bootstrap 3.3.5 -->
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 </body>
+
+<script>
+    $(function(){
+        var validacion = <?php echo $x; ?>; 
+        if(validacion == 1)
+        {
+            setTimeout(function(){
+                $(".alert-danger").hide('slow');
+            }, 2500);
+            
+        }
+    });
+</script>

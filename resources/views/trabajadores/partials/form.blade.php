@@ -9,7 +9,7 @@
 		</div>
 		{!! Form::label('cedula', 'Cédula',['class' => 'control-label col-md-2']) !!}
 		<div class="col-md-3 {{$errors->has('cedula') ? 'has-error' : ''}}">
-			{!! Form::text('cedula', $trabajador->cedula,['class' => 'form-control', 'required', 'placeholder' => "Indique la cédula del trabajador" ]) !!}	
+			{!! Form::number('cedula', $trabajador->cedula,['class' => 'form-control', 'required', 'placeholder' => "Indique la cédula del trabajador" ]) !!}	
 				@if($errors->has('cedula'))
 					<span class="help-block"><strong>{{$errors->first('cedula')}}</strong></span>
 				@endif
@@ -18,14 +18,14 @@
 	<div class="form-group">
 		{!! Form::label('telefono', 'Teléfono',['class' => 'control-label col-md-2']) !!}
 		<div class="col-md-3 {{$errors->has('telefono') ? 'has-error' : ''}}">
-			{!! Form::text('telefono', $trabajador->telefono,['class' => 'form-control', 'required', 'placeholder' => "Indique el teléfono del trabajador" ]) !!}	
+			{!! Form::number('telefono', $trabajador->telefono,['class' => 'form-control', 'required', 'placeholder' => "Indique el teléfono del trabajador" ]) !!}	
 			@if($errors->has('telefono'))
 				<span class="help-block"><strong>{{$errors->first('telefono')}}</strong></span>
 			@endif
 		</div>
 		{!! Form::label('email', 'Email',['class' => 'control-label col-md-2']) !!}
 		<div class="col-md-3 {{$errors->has('email') ? 'has-error' : ''}}">
-			{!! Form::text('email', $trabajador->email,['class' => 'form-control', 'required', 'placeholder' => "Indique el email del trabajador" ]) !!}	
+			{!! Form::email('email', $trabajador->email,['class' => 'form-control', 'required', 'placeholder' => "Indique el email del trabajador" ]) !!}	
 			@if($errors->has('email'))
 				<span class="help-block"><strong>{{$errors->first('email')}}</strong></span>
 			@endif
@@ -34,11 +34,14 @@
 	<div class="form-group">
 	{!! Form::label('departamento_id', 'Departamento',['class' => 'control-label col-md-2']) !!}
 		<div class="col-md-3">
-			{!! Form::select('departamento_id', $departamentos ,$trabajador->departamento_id,['class' => 'form-control', 'required']) !!}
+			{!! Form::select('departamento_id', $departamentos,$trabajador->departamento_id,['class' => 'form-control', 'required']) !!}
 		</div>
 		{!! Form::label('equipos_id', 'Equipo',['class' => 'control-label col-md-2']) !!}
-		<div class="col-md-3">
-			{!! Form::select('equipos_id', $equipos ,$trabajador->equipo_id,['class' => 'form-control', 'required']) !!}	
+		<div class="col-md-3 {{$errors->has('equipos_id') ? 'has-error' : ''}}">
+			{!! Form::select('equipos_id',  $equipos,$trabajador->equipos_id,['class' => 'form-control', 'required']) !!}	
+			@if($errors->has('equipos_id'))
+				<span class="help-block"><strong>{{$errors->first('equipos_id')}}</strong></span>
+			@endif
 		</div>
 	</div>
 	<div class="form-group">
