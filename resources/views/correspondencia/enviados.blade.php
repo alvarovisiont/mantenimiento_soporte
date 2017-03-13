@@ -227,6 +227,18 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<div class="col-md-7 col-md-offset-3" id="barra_oculta_enviar" style="display: none">
+					<div class="progress progress-striped active">
+					  	<div class="progress-bar" role="progressbar"
+					       aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+					       style="width: 100%">
+					       <span>Enviando...</span>
+					    	<span class="sr-only">45% completado</span>
+					  	</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
 				<div class="col-md-offset-2 col-md-5">
 					<button class="btn btn-warning btn-block">Enviar&nbsp;<i class="fa fa-send"></i></button>
 				</div>
@@ -378,6 +390,9 @@
 
 		});
 
+		$("#form_redactar").submit(function(event) {
+			$("#barra_oculta_enviar").show('slow/400/fast');
+		});
 
 		});
 	</script>

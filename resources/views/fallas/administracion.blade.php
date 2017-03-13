@@ -192,7 +192,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-7 col-md-offset-3" id="barra_oculta" style="display:none">
+						<div class="col-md-7 col-md-offset-3" id="barra_oculta_reportes" style="display:none">
 							<div class="progress progress-striped active">
 								  	<div class="progress-bar" role="progressbar"
 								       aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
@@ -359,7 +359,7 @@
 // =========================== Ver reportes de las tareas ===============================================
 
 	$("#modal_reporte").on('show.bs.modal', function(e){
-		$("#barra_oculta").show('slow/400/fast');
+		$("#barra_oculta_reportes").show('slow/400/fast');
 		var id = $(e.relatedTarget).data().id;
 
 		$.ajax({
@@ -405,12 +405,12 @@
 							contenedor_img = "";
 						}
 
-					$("#barra_oculta").hide('slow');
+					$("#barra_oculta_reportes").hide('slow');
 					$("#contenido_reportes").empty().html(contenido);
 				}
 				else
 				{
-					$("#barra_oculta").hide('slow');
+					$("#barra_oculta_reportes").hide('slow');
 					$("#contenido_reportes").empty().html('<h4 class="text-center">No hay reportes hechos todavía</h4>');	
 				}
 			}

@@ -140,6 +140,18 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<div class="col-md-7 col-md-offset-3" id="barra_oculta_enviar" style="display:none">
+					<div class="progress progress-striped active">
+					  	<div class="progress-bar" role="progressbar"
+					       aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+					       style="width: 100%">
+					       <span>Enviando...</span>
+					    	<span class="sr-only">45% completado</span>
+					  	</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
 				<div class="col-md-offset-2 col-md-5">
 					<button class="btn btn-warning btn-block">Enviar&nbsp;<i class="fa fa-send"></i></button>
 				</div>
@@ -211,58 +223,10 @@
 				$("#form_redactar")[0].reset();
 			});
 //=====================================================================================================
-
-
-			/*$(".eliminar").click(function(e){
-
-				var confirm = pregunta();
-				
-				if(confirm)
-				{
-					$("#barra_oculta").show('slow/400/fast');
-					var tr = $(this).parent().parent();
-					var form = $(".formulario_eliminar");
-					var id = $(this).data('eliminar');
-					var ruta = form.attr('action').replace(':USER', id);
-					var data = form.serialize();
-
-					$.ajax({
-						url: ruta,
-						type:'POST',
-						dataType: 'JSON',
-						data: data,
-					})
-					.done(function(data){
-						if(typeof(data.exito) != "undefined")
-						{
-							$("#barra_oculta").hide('slow/400/fast');
-							tr.remove();
-							$("#aviso").removeClass('alert-danger').addClass('alert-success').empty().html('Equipo eliminado con éxito&nbsp;<i class="fa fa-exclamation-circle"></i>').show('slow/400/fast');
-							setTimeout(function(){
-								$("#aviso").hide('slow/400/fast');
-							},2500);	
-						}
-						else
-						{
-							$("#barra_oculta").hide('slow/400/fast');
-							var titulo = $("#aviso").children('h5');
-							titulo.text('').append('No se puede borrar este registro porque esta asociado con algún trabajador u otro registro en el sistema&nbsp;&nbsp;<i class="fa fa-exclamation-circle"></i>');
-
-							$("#aviso").removeClass('alert-success').addClass('alert-danger').show('slow/400/fast');
-							
-							setTimeout(function(){
-								$("#aviso").hide('slow/400/fast');
-							},3500);		
-						}
-					});
-				}
-				else
-				{
-					return confirm;	
-				}
-			});*/
-
-
+		
+			$("#form_redactar").submit(function(event) {
+				$("#barra_oculta_enviar").show('slow/400/fast');
+			});
 		});
 	</script>
 @endsection
