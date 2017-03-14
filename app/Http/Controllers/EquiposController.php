@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\EquiposRequest;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Equipos;
 
 use App\Soporte;
 
 use App\Characteristic_computer;
-
-use Illuminate\Support\Facades\DB;
 
 use Session;
 
@@ -121,6 +121,16 @@ class EquiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function caracteristicas(Request $request)
+    {
+        $characteristics = Characteristic_computer::all();
+
+        if($request->ajax())
+        {
+            return response()->json($characteristics);
+        }
+    }
     public function destroy($id, Request $request)
     {
         //

@@ -52,6 +52,17 @@
 				@foreach($datos as $row)
 					<?php
 						$modificar = "<a href='".'{{url(equipos/'.$row->id.'/edit)}}'."' class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>";
+						
+						$descripcion = "";
+
+						if($row->tipo == "")
+						{
+							$descripcion = $row->caracteristicas_extras;
+						}
+						else
+						{
+							$descripcion = $row->tipo;
+						}
 
 						if($row->status == 0)
 						{
@@ -78,7 +89,14 @@
 						<td>{{$row->pendientes}}</td>
 						<td>@php echo $status; @endphp</td>
 						<td>
-							<a href="#modal_descripcion" class="btn btn-info" data-toggle="modal" data-descripcion = "{{$row->tipo}}">Ver&nbsp;<i class="fa fa-search"></i></a>
+							<a href="#modal_descripcion" class="btn btn-info" data-toggle="modal" 
+							data-descripcion = "<?php echo $descripcion; ?>" 
+							data-monitor = "{{$row->monitor}}"
+							data-teclado = "{{$row->teclado}}"
+							data-raton = "{{$row->raton}}"
+							data-des_monitor = "{{$row->descripcion_monitor}}"
+							data-des_teclado = "{{$row->descripcion_teclado}}"
+							data-des_raton = "{{$row->descripcion_raton}}">Ver&nbsp;<i class="fa fa-search"></i></a>
 						</td>
 						<td>
 							<a href="{{url('equipos/'.$row->id.'/edit')}}" class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>
@@ -101,7 +119,23 @@
 				      <div class="modal-body">
 				      	<div class="row">
 				      		<div class="col-md-12">
+				      			<h3 class="text-center" style="color: darkred; text-decoration: underline">Descripción del CPU</h3>
 				      			<p id="descripcion" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
+				      		</div>
+				      		<hr style="border-bottom: 1px solid lightgray">
+				      		<div class="col-md-12">
+				      			 <h3 class="text-center" style="color: darkred; text-decoration: underline">Descripción del Monitor: <strong id="bm_monitor"></strong></h3>
+				      			 <p id="descripcion_monitor" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
+				      		</div>
+				      		<hr style="border-bottom: 1px solid lightgray">
+				      		<div class="col-md-12">
+				      			 <h3 class="text-center" style="color: darkred; text-decoration: underline">Descripción del Teclado: <strong id="bm_teclado"></strong></h3>
+				      			 <p id="descripcion_teclado" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
+				      		</div>
+				      		<hr style="border-bottom: 1px solid lightgray">
+				      		<div class="col-md-12">
+				      			 <h3 class="text-center" style="color: darkred; text-decoration: underline">Descripción del Raton: <strong id="bm_raton"></strong></h3>
+				      			 <p id="descripcion_raton" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
 				      		</div>
 				      	</div>
 				      <div class="modal-footer">
@@ -137,6 +171,24 @@
 			var x = $(e.relatedTarget).data().descripcion;
 					$(e.currentTarget).find("#descripcion").html('');
 					$(e.currentTarget).find("#descripcion").html(x);
+			var x = $(e.relatedTarget).data().monitor;
+					$(e.currentTarget).find("#bm_monitor").html('');
+					$(e.currentTarget).find("#bm_monitor").html(x);
+			var x = $(e.relatedTarget).data().des_monitor;
+					$(e.currentTarget).find("#des_monitor").html('');
+					$(e.currentTarget).find("#descripcion_monitor").html(x);
+			var x = $(e.relatedTarget).data().teclado;
+					$(e.currentTarget).find("#bm_teclado").html('');
+					$(e.currentTarget).find("#bm_teclado").html(x);
+			var x = $(e.relatedTarget).data().des_teclado;
+					$(e.currentTarget).find("#descripcion_teclado").html('');
+					$(e.currentTarget).find("#descripcion_teclado").html(x);
+			var x = $(e.relatedTarget).data().raton;
+					$(e.currentTarget).find("#bm_raton").html('');
+					$(e.currentTarget).find("#bm_raton").html(x);
+			var x = $(e.relatedTarget).data().des_raton;
+					$(e.currentTarget).find("#descripcion_raton").html('');
+					$(e.currentTarget).find("#descripcion_raton").html(x);
 		});
 
 		function pregunta()

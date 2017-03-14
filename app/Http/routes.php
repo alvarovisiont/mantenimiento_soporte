@@ -15,6 +15,10 @@
 	Route::get('/', function () {
 	    return view('auth.login');
 	});
+
+// ========================EQUIPOS CARACTERÍSTICAS ==============================
+
+	Route::get('/equipos/caracteristicas', 'EquiposController@caracteristicas');
 	
 // =======================FALLAS==============================================//
 

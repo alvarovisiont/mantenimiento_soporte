@@ -24,9 +24,19 @@ class EquiposRequest extends Request
     public function rules()
     {
         return [
-            'bm' => 'unique:equipos',
+            'bm'         => 'unique:equipos',
             'nom_equipo' => 'unique:equipos',
-            'ip' => 'unique:equipos'
+            'ip'         => 'unique:equipos',
+            'monitor'    => 'unique:equipos',
+            'raton'      => 'unique:equipos',
+            'teclado'    => 'unique:equipos'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'unique' => 'Ya ha sido registrado una información en este campo con estas características'
         ];
     }
 }
