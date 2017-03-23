@@ -134,7 +134,8 @@
 							caracteristicas = "";
 							status = "";
 
-							if(e.caracteristicas == "")
+
+							if(e.caracteristicas == "" || e.caracteristicas == null)
 							{
 								caracteristicas = e.caracteristicas_extras;
 							}
@@ -160,7 +161,7 @@
 								status = "Extraviada";	
 							}
 
-							filas += "<tr><td>"+e.bm+"</td><td>"+e.nom_equipo+"</td><td>"+e.ip+"</td><td>"+e.monitor+"</td><td>"+e.raton+"</td><td>"+e.teclado+"</td><td>"+e.caracteristicas+"</td><td>"+e.color+"</td><td>"+status+"</td></tr>";
+							filas += "<tr><td>"+e.bm+"</td><td>"+e.nom_equipo+"</td><td>"+e.ip+"</td><td>"+e.monitor+"</td><td>"+e.raton+"</td><td>"+e.teclado+"</td><td>"+caracteristicas+"</td><td>"+e.color+"</td><td>"+status+"</td></tr>";
 						});
 
 						$("#tabla").children('tbody').html(filas);

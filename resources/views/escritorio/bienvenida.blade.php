@@ -8,7 +8,7 @@
             <div class="form-group">
                 <div class="col-md-12">
                     <div class="alert alert-success">
-                     <h4 class="text-center">@php echo $bienvenida; @endphp &nbsp;<i class="fa fa-snowflake-o"></i></h4>
+                     <h4 class="text-center">@php echo $bienvenida; @endphp &nbsp;<i class="fa fa-address-card" aria-hidden="true"></i></h4>
                     </div>
                 </div>
             </div>

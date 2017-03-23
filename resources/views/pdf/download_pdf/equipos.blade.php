@@ -45,7 +45,7 @@
 					$caracteristicas = "";
 					$status = "";
 
-					if($row->caracteristicas == "")
+					if($row->caracteristicas == "" || $row->caracteristicas == null)
 					{
 						$caracteristicas = $row->caracteristicas_extras;
 					}

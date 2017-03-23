@@ -100,7 +100,7 @@
 						</td>
 						<td>
 							<a href="{{url('equipos/'.$row->id.'/edit')}}" class='btn btn-warning btn-sm' title='editar'><i class='fa fa-edit'></i></a>
-							<button class="btn btn-danger btn-sm eliminar" title="eliminar" data-eliminar='{{$row->id}}'><i class="fa fa-trash"></i></button>
+							<a class="btn btn-danger btn-sm eliminar" title="eliminar" data-eliminar='{{$row->id}}'><i class="fa fa-trash"></i></a>
 						</td>
 					</tr>
 				@endforeach
@@ -119,22 +119,26 @@
 				      <div class="modal-body">
 				      	<div class="row">
 				      		<div class="col-md-12">
-				      			<h3 class="text-center" style="color: darkred; text-decoration: underline">Descripción del CPU</h3>
+				      			<h3 class="text-center" style="">Descripción del CPU</h3>
+				      			<img src="{{asset('img/cpu.gif')}}" alt="" width="90px" style="float: left">
 				      			<p id="descripcion" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
 				      		</div>
 				      		<hr style="border-bottom: 1px solid lightgray">
 				      		<div class="col-md-12">
-				      			 <h3 class="text-center" style="color: darkred; text-decoration: underline">Descripción del Monitor: <strong id="bm_monitor"></strong></h3>
+				      			 <h3 class="text-center">Descripción del Monitor: <strong id="bm_monitor" style="text-decoration: underline"></strong></h3>
+				      			 <img src="{{asset('img/monitor.jpg')}}" alt="" width="90px" style="float: left; padding-right: 3%">
 				      			 <p id="descripcion_monitor" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
 				      		</div>
 				      		<hr style="border-bottom: 1px solid lightgray">
-				      		<div class="col-md-12">
-				      			 <h3 class="text-center" style="color: darkred; text-decoration: underline">Descripción del Teclado: <strong id="bm_teclado"></strong></h3>
+				      		<div class="col-md-12">		
+				      			 <h3 class="text-center">Descripción del Teclado: <strong id="bm_teclado" style="text-decoration: underline"></strong></h3>
+				      			 <img src="{{asset('img/teclado.jpg')}}" alt="" width="90px" style="float: left; padding-right: 3%">
 				      			 <p id="descripcion_teclado" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
 				      		</div>
 				      		<hr style="border-bottom: 1px solid lightgray">
 				      		<div class="col-md-12">
-				      			 <h3 class="text-center" style="color: darkred; text-decoration: underline">Descripción del Raton: <strong id="bm_raton"></strong></h3>
+				      			 <h3 class="text-center">Descripción del Raton: <strong id="bm_raton" style="text-decoration: underline"></strong></h3>
+				      			 <img src="{{asset('img/raton.jpg')}}" alt="" width="90px" style="float: left">
 				      			 <p id="descripcion_raton" style="text-align: justify; font-size:16px; white-space: pre-wrap;"></p>
 				      		</div>
 				      	</div>
