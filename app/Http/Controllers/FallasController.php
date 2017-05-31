@@ -184,4 +184,9 @@ class FallasController extends Controller
             }   
         }
     }
+
+    public function traer_datos()
+    {
+        echo "aqui";
+    }
 }

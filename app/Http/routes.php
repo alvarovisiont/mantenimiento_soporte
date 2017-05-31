@@ -16,6 +16,7 @@
 	    return view('auth.login');
 	});
 
+	Route::get('/traerFallas', 'FallasController@traer_datos');
 // ========================EQUIPOS CARACTERÍSTICAS ==============================
 
 	Route::get('/equipos/caracteristicas', 'EquiposController@caracteristicas');
